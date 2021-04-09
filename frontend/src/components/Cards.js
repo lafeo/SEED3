@@ -51,24 +51,10 @@ function Cards() {
                   label='Luxury'
                   path='/services'
               />
-            </ul>
-            <ul className='cards__items'>
               <CardItem
                   src={BACKEND_URL+allSeeds[2].imageURL}
                   text={allSeeds[2].title}
                   label={allSeeds[2].author}
-                  path='/services'
-              />
-              <CardItem
-                  src={BACKEND_URL+allSeeds[3].imageURL}
-                  text={allSeeds[3].title}
-                  label={allSeeds[3].author}
-                  path='/services'
-              />
-              <CardItem
-                  src={BACKEND_URL+allSeeds[4].imageURL}
-                  text={allSeeds[4].title}
-                  label={allSeeds[4].author}
                   path='/services'
               />
             </ul>
