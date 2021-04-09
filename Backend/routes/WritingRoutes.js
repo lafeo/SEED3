@@ -186,6 +186,7 @@ Writing.find({origin:null}).exec().then(allSeeds=>{
 
 });
 
+
 router.delete('/delete-seed',CheckAuth,async(req,res,next)=>{
     const id = req.userData.id;
     //check;
