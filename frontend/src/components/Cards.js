@@ -2,8 +2,9 @@ import React,{useEffect,useState} from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
 import axios from "axios";
+
 import {BACKEND_URL} from "../constants";
-// import {BACKEND_URL} from '../constants'
+
 
 function Cards() {
   const [allSeeds,setAllSeeds] = useState([]);
@@ -74,7 +75,6 @@ function Cards() {
           </div>
         </div>) : null}
   </div>)
-
 
 }
 
