@@ -2,7 +2,6 @@ import React,{useEffect,useState} from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
 import axios from "axios";
-import {BACKEND_URL} from '../constants'
 
 function Cards() {
   const [allSeeds,setAllSeeds] = useState([]);
@@ -26,14 +25,16 @@ function Cards() {
         <div className='cards__wrapper'>
           <ul className='cards__items'>
             <CardItem
-              src={BACKEND_URL+allSeeds[0].imageURL}
-              text={allSeeds[0].description}
+              src='images/img-9.jpg'
+              // text={allSeeds[0].description}
+              text='Hi'
               label='Adventure'
               path='/services'
             />
             <CardItem
               src='images/img-2.jpg'
-              text={allSeeds[1].description}
+              // text={allSeeds[1].description}
+              text='Hi'
               label='Luxury'
               path='/services'
             />
