@@ -1,8 +1,23 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
+import axios from "axios";
 
 function Cards() {
+  const [allSeeds,setAllSeeds] = useState([]);
+  useEffect(()=>{
+    axios.get('http://localhost:8010/writing-routes/get-all-seeds/').then(allSeeds=>{
+      console.log(allSeeds.data);
+      setAllSeeds(allSeeds.data.allSeeds);
+    }).catch(err=>{
+      console.log(err);
+    })
+
+
+  },[]);
+
+
+
   return (
     <div className='cards'>
       <h1>Check out these EPIC Articles written by some top authors!</h1>
