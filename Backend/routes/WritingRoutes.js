@@ -133,6 +133,8 @@ router.post('/add-new-crawler',CheckAuth,async(req,res,next)=>{
 
 
 })
+
+
 //working
 router.post('/add-new-seed',CheckAuth,upload.single('imageURL'),async(req,res,next)=>{
     const id = req.userData.id;
@@ -141,6 +143,7 @@ router.post('/add-new-seed',CheckAuth,upload.single('imageURL'),async(req,res,ne
     const imageURL = req.file.path;
     const description = req.body.description;
     //checking for copy;
+    console.log("Called!")
     const bodyCheck = await Writing.find({body:body});
     if  (bodyCheck.length !== 0){
         return res.status(401).json({

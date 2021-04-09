@@ -2,119 +2,43 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Cookies from "js-cookie";
+import {BACKEND_URL} from "../constants";
 
 const Login = () => {
-  const [user, setUser] = useState();
-  const [err, setErr] = useState("");
+  const [email,setEmail] = useState('aryamannsingh9@gmail.com');
+  const [password,setPassword] = useState('15052002')
 
-  //   const refresh = (refreshToken) => {
-  //     console.log("Refreshing Token");
 
-  //     return new Promise((resolve, reject) => {
-  //       axios
-  //         .post("http://localhost:8010/writing-routes/sign-in", {
-  //           token: refreshToken,
-  //         })
-  //         .then((data) => {
-  //           if (data.data.success === false) {
-  //             setErr("Login Again");
-  //             alert("Login Again");
-  //             resolve(false);
-  //           } else {
-  //             const { accessToken } = data.data;
-  //             Cookies.set("access", accessToken);
-  //             resolve(accessToken);
-  //           }
-  //         });
-  //     });
-  //   };
-
-  //   const requestLogin = async (accessToken, refreshToken) => {
-  //     console.log(accessToken, refreshToken);
-  //     return new Promise((resolve, reject) => {
-  //       axios
-  //         .post(
-  //           "http://localhost:8010/writing-routes/sign-in",
-  //           {},
-  //           { headers: { authorization: `Bearer ${accessToken}` } }
-  //         )
-  //         .then(async (data) => {
-  //           if (data.data.success === false) {
-  //             if (data.data.message === "User not Authenticated") {
-  //               setErr("Login Again");
-  //               alert("Login Again");
-  //               // Set error msg to login again
-  //             } else if (data.data.message === "Access Token Expired") {
-  //               const accessToken = await refresh(refreshToken);
-  //               return await requestLogin(accessToken, refreshToken);
-  //             }
-
-  //             resolve(false);
-  //           } else {
-  //             // Protected route has been accessed, response can be used
-  //             setErr("You are logged in");
-  //             alert("You are logged in");
-  //             resolve(true);
-  //           }
-  //         });
-  //     });
-  //   };
-
-  const changeHandler = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
-  };
-
-  //   const protect = async (e) => {
-  //     let accessToken = Cookies.get("access");
-  //     let refreshToken = Cookies.get("refresh");
-
-  //     accessToken = await hasAccess(accessToken, refreshToken);
-
-  //     if (!accessToken) {
-  //     } else {
-  //       await requestLogin(accessToken, refreshToken);
-  //     }
-  //   };
-
-  //   const hasAccess = async (accessToken, refreshToken) => {
-  //     if (!refreshToken) return null;
-
-  //     //   Cookie expires
-  //     if (accessToken === undefined) {
-  //       accessToken = await refresh(refreshToken);
-  //       return accessToken;
-  //     }
-
-  //     return accessToken;
-  //   };
 
   const submitHandler = async (e) => {
-    //   We don't want the page to reload.
+    const dataToSend = {email:email,password:password};
     e.preventDefault();
-    axios
-      .post("http://localhost:8010/user-routes/sign-in", user)
-      .then((data) => {
-        // const { accessToken, refreshToken } = data.data;
+    console.log(dataToSend);
 
-        // Cookies.set("access", accessToken);
-        // Cookies.set("refresh", refreshToken);
-        console.log(data);
-        console.log(user);
-      })
+    axios.post(`${BACKEND_URL}/user-routes/sign-in/`,dataToSend,
+        {
+
+          headers: {'Content-Type': 'application/json'}
+        }
+      )
+      .then(result=>{
+        console.log(result.data);
+    })
       .catch((event) => console.log(event.message));
   };
 
-  console.log(err);
+
   return (
     <div>
-      <form action="" onChange={changeHandler} onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <div>
           <Label>Email: </Label>
           <Input
             name="email"
             type="email"
             placeholder="Enter your Email Address"
+            value={email}
+            onChange={(e)=>{setEmail(e.target.value)}}
           />
         </div>
         <div>
@@ -123,6 +47,8 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="Enter a password"
+            value={password}
+            onChange={(e)=>{setPassword(e.target.value)}}
           />
         </div>
         <Input type="submit" value="Login" />
