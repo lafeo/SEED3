@@ -36,7 +36,7 @@ export default function SeedDetailsComponent(props) {
   }, []);
 
   const ftch = fetch('http://localhost:8010/get-seed/'+mainSeed._id);
-  console.log(fetch);
+  console.log(fetch);//this is what comes back from the --> the get-seeds ADD THIS -- (1)
 
   return (
     <Full>
@@ -45,7 +45,7 @@ export default function SeedDetailsComponent(props) {
           <Seed mainSeed={mainSeed}>
 
             <img src={BACKEND_URL + mainSeed.imageURL} alt="img"></img>
-            <h1>{mainSeed.title}</h1>
+            <h1>{mainSeed.title}</h1>                                   <!--(1)-ADD THIS HERE-->
           </Seed>
         </SeedWrapper>
         <CrawlerContainer>
