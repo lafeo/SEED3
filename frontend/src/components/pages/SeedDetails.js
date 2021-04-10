@@ -35,11 +35,15 @@ export default function SeedDetailsComponent(props) {
       });
   }, []);
 
+  const ftch = fetch('http://localhost:8010/get-seed/'+mainSeed._id);
+  console.log(fetch);
+
   return (
     <Full>
       <SeedContainer>
         <SeedWrapper>
           <Seed mainSeed={mainSeed}>
+
             <img src={BACKEND_URL + mainSeed.imageURL} alt="img"></img>
             <h1>{mainSeed.title}</h1>
           </Seed>
