@@ -69,7 +69,7 @@ const Full = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  height: 87vh;
+  height: 88vh;
 `;
 
 const SeedContainer = styled.div`
@@ -101,7 +101,6 @@ const Seed = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem 3rem 9rem 3rem;
-
   /* img {
     width: 40%;
     height: 220px;
