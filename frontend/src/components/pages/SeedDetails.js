@@ -14,8 +14,6 @@ export default function SeedDetailsComponent(props) {
   }
 
   useEffect(() => {
-
-
     axios
       .get(
         `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
@@ -46,7 +44,7 @@ export default function SeedDetailsComponent(props) {
       <SeedContainer>
         <SeedWrapper>
           <Seed mainSeed={mainSeed}>
-            <div dangerouslySetInnerHTML={{ __html:mainSeed.body}}/>
+            <div dangerouslySetInnerHTML={{ __html: mainSeed.body }} />
           </Seed>
         </SeedWrapper>
         <CrawlerContainer>
@@ -84,12 +82,13 @@ const SeedContainer = styled.div`
 const SeedWrapper = styled.div`
   color: white;
   /* margin: 3rem; */
-  height: 80%;
+  height: 60vh;
   max-width: 50vw;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   margin: 2.5rem 4.5rem;
+  /* padding: 2.5rem 4.5rem */
   /* transform: translateY(-25%); */
   overflow: scroll;
 `;
