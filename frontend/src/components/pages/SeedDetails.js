@@ -18,7 +18,7 @@ export default function SeedDetailsComponent(props) {
         axios.get(`${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`).then(allCrawlers=>{
             if (allCrawlers.data.success){
                 console.log("All crawlers arrived!");
-                
+
                 setAllCrawlers(allCrawlers.data.allCrawlers);
                 setShowData(true);
             }else{
