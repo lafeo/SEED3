@@ -8,8 +8,8 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/table';
 import 'tinymce/skins/ui/oxide/skin.min.css';
-import 'tinymce/skins/ui/oxide/content.min.css';
-import 'tinymce/skins/content/default/content.min.css';
+// import 'tinymce/skins/ui/oxide/content.min.css';
+// import 'tinymce/skins/content/default/content.min.css';
 export default function TinyMCEComponent(props) {
     function handleEditorChange (content, editor){
         props.callback(content);
