@@ -3,6 +3,8 @@ import axios from "axios";
 import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
 import "./Details.scss";
+import "../seedDetails.css";
+import Popup from 'reactjs-popup';
 
 export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
@@ -12,7 +14,11 @@ export default function SeedDetailsComponent(props) {
   function renderCrawlers() {
     return allCrawlers.map((crawler) => <h1>crawler.authorID</h1>);
   }
-
+  const Modal = () => (
+    <Popup trigger={<button className="button"> Open Modal </button>} modal>
+      <span> Modal content </span>
+    </Popup>
+  );
   useEffect(() => {
     setMainSeed(props.location.state.seed);
     axios
