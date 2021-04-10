@@ -5,30 +5,26 @@ import {BACKEND_URL} from "../constants";
 import './SignUp.css'
 
 
-export default function SignUpComponent (props){
-    const [email,setEmail] = useState('');
+export default function SignInComponent (props){
     const [username,setUsername]  = useState('');
-    const [firstName,setFirstName] = useState('');
-    const [lastName,setLastName] = useState('');
     const [password,setPassword] = useState('');
 
     function onSubmit(e){
-        e.preventDefault();
-        axios.post(BACKEND_URL+'user-routes/sign-up',{
-            email:email,
+        console.log(username);
+        console.log(password);
+        // e.preventDefault();
+        axios.post(BACKEND_URL+'user-routes/sign-in',{
             username:username,
-            firstName:firstName,
-            lastName:lastName,
             password:password,
         },{
             headers:{
                 'Content-Type':"application/json"
             }
         }).then(result=>{
-            console.log("New user made!!");
+            console.log("User signed in!");
             console.log(result);
         }).catch(err=>{
-            console.log("Error making user!!");
+            console.log("Error signing user in!");
             console.log(err);
         })
     }
@@ -37,11 +33,8 @@ export default function SignUpComponent (props){
         <div className="login-form">
             <form >
                 <input className="input-br" type="text" placeholder='Username' onChange={(e)=>{setUsername(e.target.value)}}/>
-                <input className="input-br" type="email" placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}}/>
-                <input className="input-br" type="text" placeholder='First Name' onChange={(e)=>{setFirstName(e.target.value)}}/>
-                <input className="input-br" type="text" placeholder='Last Name' onChange={(e)=>{setLastName(e.target.value)}}/>
                 <input className="input-br" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
-                <p className="login-target"><Link className="already" onClick={e=>{props.callback(false)}}> Already Register? Login!</Link></p>
+                <p className="login-target"><Link className="already" onClick={e=>{props.callback(true)}}> Not Registered? Sign Up!</Link></p>
                 <button className="input-button" onClick={onSubmit}>Submit</button>
             </form>
 

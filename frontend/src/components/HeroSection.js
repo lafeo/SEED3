@@ -1,10 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './HeroSection.css';
 import SignUpComponent from './SignUp';
+import SignInComponent from "./SignIn";
 
 function HeroSection() {
+
+  const [showSignUpForm,setShowSignUpForm] = useState(false);
+  function callbackForShowSignUpForm(value){
+    console.log(`Callback called for ${value}`);
+    setShowSignUpForm(value);
+  }
   return (
   <div className="container">
     <div className='hero-container left-container'>
@@ -37,9 +44,9 @@ function HeroSection() {
       <div className="line"></div>
     </div>
     <div className="right-container" id="overrule">
-      <h1>Sign In / Sign Up</h1>
+      <h1>{showSignUpForm ? 'Sign Up' :'Log In'}</h1>
       <br></br><br></br>
-      <SignUpComponent/>
+      {showSignUpForm ? <SignUpComponent callback={callbackForShowSignUpForm}/> : <SignInComponent callback={callbackForShowSignUpForm}/>}
     </div>
   </div>
   );
