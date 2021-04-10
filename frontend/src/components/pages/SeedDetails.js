@@ -37,6 +37,9 @@ export default function SeedDetailsComponent(props) {
       });
   }, []);
 
+  const ftch = fetch("http://localhost:8010/get-seed/" + mainSeed._id);
+  console.log(fetch); //this is what comes back from the --> the get-seeds ADD THIS -- (1)
+
   return (
     <Full>
       <SeedContainer>
