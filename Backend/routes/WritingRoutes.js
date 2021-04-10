@@ -194,6 +194,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
             _id:seed._id,
             description:seed.description,
             imageURL:seed.imageURL,
+            body:seed.body,
             userDetails:{username:userDetails.username,
                 lastName:userDetails.lastName,
                 firstName:userDetails.firstName}
@@ -206,6 +207,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
     })
 }).catch(err=>{
     console.log("Error!");
+    console.log(err);
     return res.status(400).json({
         success:false,
         message : err.message
