@@ -50,31 +50,32 @@ export default function AddCrawler (){
             parentWritingId:'6070da14ad26c886066c8c81'
         }
         e.preventDefault();
-
-        axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
-            headers:{
-                'Content-Type':"application/json",
-                'Authorization':`Bearer ${TOKEN}`
-            }
-        }).then(response=>{
-            console.log("New crawler added!");
-            console.log(response);
-        }).catch(err=>{
-            console.log("Error adding new crawler!");
-            console.log(err);
-        })
+        console.log(detailsToSend);
+        // axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
+        //     headers:{
+        //         'Content-Type':"application/json",
+        //         'Authorization':`Bearer ${TOKEN}`
+        //     }
+        // }).then(response=>{
+        //     console.log("New crawler added!");
+        //     console.log(response);
+        // }).catch(err=>{
+        //     console.log("Error adding new crawler!");
+        //     console.log(err);
+        // })
 
     };
 
 
 
     return (
+        
         <div>
             <form>
 
                 <input value={description} placeholder='Description' onChange={(e)=>{setDescription(e.target.value)}}  type="text"/>
-                <textarea  onChange={(e) => (setBody(e.target.value))} placeholder='Body' name="body2" id="body2"/>
-                <textarea placeholder='Body'  name="body" id="body"/>
+                {/*<textarea  onChange={(e) => (setBody(e.target.value))} placeholder='Body' name="body2" id="body2"/>*/}
+                <div id="body"></div>
 
                 <button onClick={submitHandler}>Submit</button>
             </form>
