@@ -71,7 +71,7 @@ const Full = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  height: 87vh;
+  height: 88vh;
 `;
 
 const SeedContainer = styled.div`
