@@ -194,6 +194,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
             _id:seed._id,
             description:seed.description,
             imageURL:seed.imageURL,
+            body:seed.body,
             userDetails:{username:userDetails.username,
                 lastName:userDetails.lastName,
                 firstName:userDetails.firstName}

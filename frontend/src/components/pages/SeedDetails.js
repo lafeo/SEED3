@@ -14,7 +14,8 @@ export default function SeedDetailsComponent(props) {
   }
 
   useEffect(() => {
-    setMainSeed(props.location.state.seed);
+
+
     axios
       .get(
         `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
@@ -45,15 +46,7 @@ export default function SeedDetailsComponent(props) {
       <SeedContainer>
         <SeedWrapper>
           <Seed mainSeed={mainSeed}>
-            {/* <img src={BACKEND_URL + mainSeed.imageURL} alt="img"></img> */}
-            <h5>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Consectetur voluptates dolorem totam delectus ipsam hic earum,
-              assumenda porro libero dolorum. Debitis iure beatae velit, fugiat
-              vel maiores itaque eius ut eum id consequatur dolores eaque
-              aspernatur accusamus consequuntur obcaecati. Dolore vitae
-              praesentium, ex dolores ipsa est recusandae repellendus nulla cum.
-            </h5>
+            <div dangerouslySetInnerHTML={{ __html:mainSeed.body}}/>
           </Seed>
         </SeedWrapper>
         <CrawlerContainer>
