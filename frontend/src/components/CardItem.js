@@ -8,7 +8,12 @@ function CardItem({ seed }) {
   return (
     <>
       <li className="cards__item">
-        <Link className="cards__item__link" to="/services">
+        <Link className="cards__item__link"  to={{
+          pathname: "/seed-details",
+          state:{
+            seed:seed
+          }
+        }}>
           <figure className="cards__item__pic-wrap" data-category={seed.title}>
             <img
               className="cards__item__img"
