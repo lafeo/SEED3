@@ -42,15 +42,11 @@ function Cards() {
       <h1>Check out these EPIC Articles written by some top authors!</h1>
       {showSeeds ? (
         <div className="cards__container">
-
-
-
           {Shuffle(allSeeds)
-              .splice(0, 8)
-              .map((seed) => (
-                  <CardItem crawler={seed} />
-              ))}
-
+            .splice(0, 8)
+            .map((seed) => (
+              <CardItem crawler={seed} key={seed._id} />
+            ))}
         </div>
       ) : null}
     </div>

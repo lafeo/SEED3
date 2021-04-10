@@ -1,16 +1,16 @@
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(255, 255, 255) transparent;
+  scrollbar-color: rgb(255, 255, 255);
 }
 
 *::-webkit-scrollbar {
-  width: 20px;
+  width: 8px;
 }
 *::-webkit-scrollbar-track {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 255, 255) transparent;
+  background-color: rgb(255, 255, 255);
   border-radius: 20px;
   border: transparent;
 }
