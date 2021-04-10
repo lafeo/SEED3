@@ -1,16 +1,16 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import {BACKEND_URL} from "../constants";
-
+import tinymce from "tinymce";
 
 export default function AddNewSeed (){
     useEffect(() => {
-        var script = document.createElement('script');
-        script.type  = 'text/javascript';
-        script.src = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js';
-        document.head.appendChild(script);
-
-        script.onload = function(){
+        // var script = document.createElement('script');
+        // script.type  = 'text/javascript';
+        // script.src = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js';
+        // document.head.appendChild(script);
+        //
+        // script.onload = function(){
             //
             tinymce.init({
                 selector: '#body',
@@ -31,7 +31,7 @@ export default function AddNewSeed (){
             });
 
 
-        };
+        // };
 
 
     },[])

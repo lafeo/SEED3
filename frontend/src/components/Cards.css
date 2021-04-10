@@ -1,17 +1,16 @@
 .cards {
   padding: 4rem;
-  background: linear-gradient(#0E0E0E, #100630);
+  background: linear-gradient(#0e0e0e, #100630);
 }
 
 h1 {
   text-align: center;
-  color:rgb(216, 216, 216);
+  color: rgb(216, 216, 216);
 }
 
 .cards__container {
   display: flex;
-  flex-flow: column;
-  max-width: 1120px;
+  flex-wrap: wrap;
   width: 90%;
   margin: 0 auto;
 }
@@ -23,7 +22,9 @@ h1 {
 
 .cards__items {
   margin-bottom: 24px;
-  color:white;
+  color: white;
+  display: grid;
+  grid-template-columns: auto;
 }
 
 .cards__item {
