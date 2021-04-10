@@ -14,15 +14,15 @@ h1 {
   width: 90%;
   margin: 0 auto;
 }
-
 .cards__wrapper {
   position: relative;
-  margin: 50px 0 45px;
+  margin: 50px 0 45px -4vw;
 }
 
 .cards__items {
   margin-bottom: 24px;
   color: white;
+  margin-top: 5vh;
   display: grid;
   grid-template-columns: auto;
 }
@@ -30,7 +30,9 @@ h1 {
 .cards__item {
   display: flex;
   flex: 1;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
+  width: 20vw;
+  margin-left: 2vw;
   border-radius: 10px;
 }
 
