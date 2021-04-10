@@ -45,17 +45,21 @@ video {
 
 .hero-container {
   /* background: url('/images/img-home.jpg') center center/cover no-repeat; */
-  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow-x: hidden;
+  height: inherit;
+  top: 50vh;
+  text-align: center;
   align-items: center;
   object-fit: contain;
 }
 
-.hero-container > h2 {
+.inside-video{
+  padding-top:35vh;
+}
+.hero-container h2 {
   color: #fff;
   font-size: 45px;
   overflow-x: hidden;
@@ -68,7 +72,7 @@ video {
   margin-top: -20px;
 }
 
-.hero-container > p {
+.hero-container p {
   margin-top: 8px;
   color: #fff;
   overflow-x: hidden;
@@ -89,7 +93,42 @@ video {
 .fa-play-circle {
   margin-left: 4px;
 }
-
+@media screen and (min-width: 872px){
+  .right-container h1{
+    padding-top: 30vh;
+  }
+  .left-container{
+    height:100vh;
+    float:left;
+    width:40%;
+    margin-left: 5%;
+  }
+  .middle-line{
+    /* height: 100vh; */
+    float: left;
+    width:1vw;
+    padding: 10vh 0 0 7vw;
+  }
+  .line{
+    border-left: 6px solid rgb(255, 255, 255);
+    height: 500px;
+  }
+  .hero-container{
+    height: 100vh;
+  }
+  .right-container{
+    height:100vh;
+    width:40%;
+    margin-left: 5%;
+    float:left;
+  }
+  .container{
+    height: 100vh;
+  }
+  .middle-line{
+    height: 100vh;
+  }
+}
 @media screen and (max-width: 960px) {
   .hero-container > h2 {
     font-size: 40px;
@@ -100,7 +139,11 @@ video {
     font-size: 80px;
   }
 }
-
+@media screen and (max-width: 871px){
+  .right-container h1{
+    padding-top: 10vh;
+  }
+} 
 @media screen and (max-width: 768px) {
   .hero-container > h2 {
     font-size: 30px;
@@ -124,34 +167,17 @@ video {
     width: 100%;
   }
 }
-
-.left-container{
-  float:left;
-  width:40%;
-  margin-left: 5%;
-}
 .right-container{
-  float:left;
-  width:40%;
-  height:100vh;
-  margin-left: 5%;
-}
-.right-container h1{
-  padding-top: 30vh;
-}
-.container{
   height: 100vh;
+}
+/* .right-container{
+  /* float:left; */
+  /* width:40%;
+  margin-left: 5%; 
+} */
+
+.container{
+  /* height: 100vh; */
   margin-top: 0;
   width: 100vw;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
-}
-.middle-line{
-  height: 100vh;
-  float: left;
-  width:1vw;
-  padding: 10vh 0 0 7vw;
-}
-.line{
-  border-left: 6px solid rgb(255, 255, 255);
-  height: 500px;
 }

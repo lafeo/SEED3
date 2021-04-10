@@ -8,6 +8,7 @@ function HeroSection() {
   <div className="container">
     <div className='hero-container left-container'>
       <video src='/videos/video-1.mp4' autoPlay loop muted />
+      <div className="inside-video">
       <h2>What are you waiting for?</h2>
       <p>Start Contributing</p>
       <p>to</p>
@@ -28,6 +29,7 @@ function HeroSection() {
         >
           LOGIN / SIGN UP
         </Button>
+      </div>
       </div>
     </div>
     <div className='middle-line'>
