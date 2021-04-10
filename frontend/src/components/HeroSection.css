@@ -50,6 +50,7 @@ video {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-x: hidden;
   align-items: center;
   object-fit: contain;
 }
@@ -57,6 +58,8 @@ video {
 .hero-container > h2 {
   color: #fff;
   font-size: 45px;
+  overflow-x: hidden;
+  text-align: center;
   margin-top: -100px;
 }
 .seed{
@@ -68,6 +71,7 @@ video {
 .hero-container > p {
   margin-top: 8px;
   color: #fff;
+  overflow-x: hidden;
   font-size: 32px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
