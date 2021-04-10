@@ -42,15 +42,14 @@ function Cards() {
       <h1>Check out these EPIC Articles written by some top authors!</h1>
       {showSeeds ? (
         <div className="cards__container">
-          <div className="cards__wrapper">
-            <ul className="cards__items">
+
+
               {Shuffle(allSeeds)
-                .splice(0, 4)
+                .splice(0, 6)
                 .map((seed) => (
                   <CardItem seed={seed} />
                 ))}
-            </ul>
-          </div>
+
         </div>
       ) : null}
     </div>

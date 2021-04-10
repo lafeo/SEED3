@@ -317,8 +317,9 @@ router.delete('/delete-crawler',CheckAuth,async(req,res,next)=>{
 
 
 
-router.get('/get-crawlers-for-seed/:id',(req,res,next)=>{
+router.get('/get-crawlers-for-seed/:parent',(req,res,next)=>{
     const parent = req.params.parent;
+    console.log("Called!")
     if (!parent){
         return res.status(401).json({
             success:false,
@@ -329,13 +330,13 @@ router.get('/get-crawlers-for-seed/:id',(req,res,next)=>{
         console.log(`All crawlers found for ${parent}!`);
         return res.status(200).json({
             success:true,
-            allCrawlers : allCrawlers
+            allCrawlers : allCrawlers ? allCrawlers:[]
         })
     }).catch(err=>{
         console.log(`Error finding crawlers for ${parent}!`);
         return res.status(400).json({
             success:false,
-            message:err.message
+            message:err
         })
     })
 });
