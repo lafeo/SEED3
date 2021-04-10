@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BACKEND_URL } from "../constants";
+import './CardItem.css'
+
 
 function CardItem({ seed }) {
   return (
@@ -15,7 +17,7 @@ function CardItem({ seed }) {
             />
           </figure>
           <div className="cards__item__info">
-            <h5 className="cards__item__text">{seed.title}</h5>
+            <h5 className="cards__item__text">{seed.description}</h5>
           </div>
         </Link>
       </li>
