@@ -1,13 +1,19 @@
 import React from 'react';
 import '../../App.css';
-import HTMLRendering from '../HTMLRendering'
+import './login.css';
+import Card from './card2'
 
 export default function Login() {
   return(
-    <>
-      <h1>LOGIN PAGE</h1>
-    <h1 className='login'>LOGIN</h1>
-    <HTMLRendering/>
-    </>
+    <div className="container-fluid">
+      <div className="row">
+          <div className="col-md-4">
+            <Card/>
+          </div>
+          <div className="col-md-4">
+          <Card/>
+          </div>
+      </div>
+    </div>
   );
 }
