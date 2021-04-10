@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { Button } from './Button';
 import './HeroSection.css';
+import SignUpComponent from './SignUp';
 
 function HeroSection() {
   return (
@@ -35,8 +36,10 @@ function HeroSection() {
     <div className='middle-line'>
       <div className="line"></div>
     </div>
-    <div className="right-container">
-      <h1>LOGIN PAGE</h1>
+    <div className="right-container" id="overrule">
+      <h1>Sign In / Sign Up</h1>
+      <br></br><br></br>
+      <SignUpComponent/>
     </div>
   </div>
   );

@@ -5,7 +5,7 @@ import Home from "./components/pages/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Services from "./components/pages/Services";
 import Login from "./components/pages/Login";
-import SignUp from "./components/pages/SignUp";
+import SignUp from "./components/SignUp";
 import AddCrawler from "./components/AddCrawler";
 import AddNewSeed from "./components/AddNewSeed";
 import SeedDetailsComponent from "./components/pages/SeedDetails";

@@ -94,8 +94,14 @@ video {
   margin-left: 4px;
 }
 @media screen and (min-width: 872px){
+  .right-container{
+    margin-top:6vh;
+    margin-left:10vw;
+    backdrop-filter: blur(2px);
+  background-color: rgba(253, 251, 240, 0.1);
+  }
   .right-container h1{
-    padding-top: 30vh;
+    padding-top: 5vh;
   }
   .left-container{
     height:100vh;
@@ -110,16 +116,16 @@ video {
     padding: 10vh 0 0 7vw;
   }
   .line{
-    border-left: 6px solid rgb(255, 255, 255);
+    border-left: 4px solid rgb(255, 255, 255);
+    border-radius: 30%;
     height: 500px;
   }
   .hero-container{
     height: 100vh;
   }
   .right-container{
-    height:100vh;
-    width:40%;
-    margin-left: 5%;
+    height: 77vh;
+    width:28.5vw;
     float:left;
   }
   .container{
@@ -142,6 +148,10 @@ video {
 @media screen and (max-width: 871px){
   .right-container h1{
     padding-top: 10vh;
+  }
+  .right-container{
+    /* margin-left: 40%; */
+    height:80vh;
   }
 } 
 @media screen and (max-width: 768px) {
@@ -167,8 +177,13 @@ video {
     width: 100%;
   }
 }
+
+
 .right-container{
-  height: 100vh;
+
+  
+  border-radius: 10px;
+  
 }
 /* .right-container{
   /* float:left; */

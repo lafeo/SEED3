@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import {BACKEND_URL} from "../constants";
+import './SignUp.css'
 
 
 export default function SignUpComponent (){
@@ -32,14 +34,15 @@ export default function SignUpComponent (){
     }
 
     return (
-        <div>
+        <div className="login-form">
             <form >
-                <input type="text" placeholder='username' onChange={(e)=>{setUsername(e.target.value)}}/>
-                <input type="email" placeholder='email' onChange={(e)=>{setEmail(e.target.value)}}/>
-                <input type="text" placeholder='First Name' onChange={(e)=>{setFirstName(e.target.value)}}/>
-                <input type="text" placeholder='Last Name' onChange={(e)=>{setLastName(e.target.value)}}/>
-                <input type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
-                <button onClick={onSubmit}>Submit</button>
+                <input className="input-br" type="text" placeholder='Username' onChange={(e)=>{setUsername(e.target.value)}}/>
+                <input className="input-br" type="email" placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}}/>
+                <input className="input-br" type="text" placeholder='First Name' onChange={(e)=>{setFirstName(e.target.value)}}/>
+                <input className="input-br" type="text" placeholder='Last Name' onChange={(e)=>{setLastName(e.target.value)}}/>
+                <input className="input-br" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+                <p className="login-target"><Link className="already" onClick=""> Already Register? Login!</Link></p>
+                <button className="input-button" onClick={onSubmit}>Submit</button>
             </form>
 
         </div>
