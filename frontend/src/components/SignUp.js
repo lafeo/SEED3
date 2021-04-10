@@ -29,6 +29,7 @@ export default function SignUpComponent (props){
             if (result.success){
                 console.log("New user made!!");
                 console.log(result);
+                localStorage.setItem('TOKEN',result.token);
             }else{
                 console.log("New user rejected!");
                 alert(result.data.message);
