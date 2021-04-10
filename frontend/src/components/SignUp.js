@@ -40,8 +40,10 @@ export default function SignUpComponent (props){
                 <input className="input-br" type="email" placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}}/>
                 <input className="input-br" type="text" placeholder='First Name' onChange={(e)=>{setFirstName(e.target.value)}}/>
                 <input className="input-br" type="text" placeholder='Last Name' onChange={(e)=>{setLastName(e.target.value)}}/>
-                <input className="input-br" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
-                <p className="login-target"><Link className="already" onClick={e=>{props.callback(false)}}> Already Register? Login!</Link></p>
+
+                <input className="input-br alag" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+                <p className="login-target"><Link className="already" onClick={e=>{props.callback(false)}}> Already Registered? Login!</Link></p>
+
                 <button className="input-button" onClick={onSubmit}>Submit</button>
             </form>
 

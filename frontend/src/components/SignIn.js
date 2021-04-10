@@ -33,7 +33,7 @@ export default function SignInComponent (props){
         <div className="login-form">
             <form >
                 <input className="input-br" type="text" placeholder='Username' onChange={(e)=>{setUsername(e.target.value)}}/>
-                <input className="input-br" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+                <input className="input-br alag" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
                 <p className="login-target"><Link className="already" onClick={e=>{props.callback(true)}}> Not Registered? Sign Up!</Link></p>
                 <button className="input-button" onClick={onSubmit}>Submit</button>
             </form>
