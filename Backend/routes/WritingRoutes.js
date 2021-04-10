@@ -185,21 +185,24 @@ router.post('/add-new-seed',CheckAuth,upload.single('imageURL'),async(req,res,ne
 router.get('/get-all-seeds',async(req,res,next)=>{
 Writing.find({origin:null}).exec().then(async(allSeeds)=>{
     console.log("All seeds acquired!");
-    const allSeedsWithAuthorDetails=[];
+    const finalSeedResult= [];
     for (let seed of allSeeds){
-        const tempUser = await User.findOne({_id: seed.authorID})
-        allSeedsWithAuthorDetails.push({
-            seedData : seed,
-            userDetails:{
-                firstName:tempUser.firstName,
-                lastName:tempUser.lastName,
-                username:tempUser.username,
-            }
-        })
+        const userDetails = await User.findOne({_id:seed.authorID});
+        console.log(userDetails.username);
+        finalSeedResult.push({
+            title:seed.title,
+            _id:seed._id,
+            description:seed.description,
+            imageURL:seed.imageURL,
+            userDetails:{username:userDetails.username,
+                lastName:userDetails.lastName,
+                firstName:userDetails.firstName}
+        });
     }
+   console.log("Waited!")
     return res.status(200).json({
         success:true,
-        allSeeds: allSeedsWithAuthorDetails
+        allSeeds: finalSeedResult
     })
 }).catch(err=>{
     console.log("Error!");
