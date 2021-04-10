@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import axios from "axios";
 import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
@@ -44,11 +45,31 @@ export default function SeedDetailsComponent(props) {
 
   }
 
-  useEffect(async() => {
-    await axios.get(`${BACKEND_URL}writing-routes/get-seed-body-and-stars/${props.location.state.seed._id}`).then(response=>{
+  useEffect(() => {
+ axios.get(`${BACKEND_URL}writing-routes/get-seed-body-and-stars/${props.location.state.seed._id}`).then(response=>{
       if (response.data.success){
         setBody(response.data.body);
         setStarCounter(response.data.stars);
+
+        axios
+            .get(
+                `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
+            )
+            .then((allCrawlers) => {
+              if (allCrawlers.data.success) {
+                console.log("All crawlers arrived!");
+                console.log(allCrawlers.data);
+                console.log(mainSeed);
+
+                setAllCrawlers(allCrawlers.data.allCrawlers);
+              } else {
+                console.log("Could not fetch all crawlers!");
+              }
+            })
+            .catch((err) => {
+              console.log("Error getting all the crawlers!");
+              console.log(err);
+            });
       }
     }).catch(err=>{
       console.log("Error!");
@@ -56,29 +77,46 @@ export default function SeedDetailsComponent(props) {
     })
 
 
-    axios
-      .get(
-        `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
-      )
-      .then((allCrawlers) => {
-        if (allCrawlers.data.success) {
-          console.log("All crawlers arrived!");
-          console.log(allCrawlers.data);
-          console.log(mainSeed);
-
-          setAllCrawlers(allCrawlers.data.allCrawlers);
-        } else {
-          console.log("Could not fetch all crawlers!");
-        }
-      })
-      .catch((err) => {
-        console.log("Error getting all the crawlers!");
-        console.log(err);
-      });
   }, []);
 
   const ftch = fetch("http://localhost:8010/get-seed/" + mainSeed._id);
   console.log(fetch); //this is what comes back from the --> the get-seeds ADD THIS -- (1)
+
+  //   MODAL
+  const customStyles = {
+    content: {
+      top: "55%",
+      left: "50%",
+      right: "40%",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      background: "#100B18",
+        opacity: 0.9,
+      boxShadow: "20px 20px 10px gray",
+      borderRadius: "20px",
+      width: "70%",
+      height: "70%",
+    },
+  };
+
+  var subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(!modalIsOpen);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "white";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  Modal.setAppElement("#root");
 
   return (
     <Full>
@@ -105,19 +143,56 @@ export default function SeedDetailsComponent(props) {
 
         <CrawlerContainer>
           <CrawlerWrapper>
-            {allCrawlers.map((crawler) => (
-              <Crawler key={crawler.authorID}>
-                <div>{crawler.title}</div>
-                {/* <div>{crawler.author}</div>
+              {allCrawlers.length===0 ? <h1>No Crawls</h1>:
+                  allCrawlers.map((crawler) => (
+                      <Crawler key={crawler.authorID} onClick={openModal}>
+                          {modalIsOpen ? (
+                              <Modal
+                                  closeTimeoutMS={500}
+                                  isOpen={modalIsOpen}
+                                  onAfterOpen={afterOpenModal}
+                                  onRequestClose={closeModal}
+                                  style={customStyles}
+                                  contentLabel="Example Modal"
+                              >
+                                  <HeadingContainer>
+                                      <h2
+                                          ref={(_subtitle) => (subtitle = _subtitle)}
+                                          style={{color: "blue"}}
+                                      >
+                                          {crawler.title}
+
+                                      </h2>
+                                      <CrawlerAuthorName>
+                                          By {crawler.userDetails.username}
+                                      </CrawlerAuthorName>
+
+
+                                  </HeadingContainer>
+                                  <DangerousText
+                                      dangerouslySetInnerHTML={{__html: crawler.body}}
+                                  />
+                                  <ButtonWrapper>
+                                      <Button onClick={closeModal}>Close</Button>
+                                  </ButtonWrapper>
+                              </Modal>
+                          ) : (
+                              ""
+                          )}
+                          <div>Crawl By {crawler.userDetails.username}</div>
+
+                          {/* <div>{crawler.author}</div>
                 <div>{crawler.pointOfClicking}</div> */}
-              </Crawler>
-            ))}
+                      </Crawler>
+                  ))
+              }
           </CrawlerWrapper>
         </CrawlerContainer>
       </SeedContainer>
     </Full>
   );
 }
+
 
 const SeedTitle = styled.div`
   font-size:2.3rem;
@@ -130,13 +205,52 @@ const StarsArea = styled.div`
 `
 
 
+const DangerousText = styled.div`
+  font-size: 1.2rem;
+  color: white;
+`;
+const CrawlerAuthorName = styled.div`
+  font-size:1.2rem;
+  color:white;
+  text-align:center;
+`
+const HeadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+  flex-direction: column;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  padding: 0.3rem 2rem;
+  border-radius: 5px;
+  margin: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s all ease-out;
+  font-size: 1rem;
+  font-weight: bolder;
+  &:hover {
+    background-color: #100828;
+    color: whitesmoke;
+  }
+`;
+
 const Full = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/images/wallpaper.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
-  height: 87vh;
+  height: 88vh;
 `;
 const AuthorName = styled.div`
   text-align: center;
@@ -174,7 +288,6 @@ const Seed = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem 3rem 9rem 3rem;
-
   /* img {
     width: 40%;
     height: 220px;
@@ -185,7 +298,9 @@ const Seed = styled.div`
   } */
 `;
 
-const Crawler = styled.div``;
+const Crawler = styled.div`
+  cursor: pointer;
+`;
 
 const CrawlerContainer = styled.div`
   overflow: scroll;

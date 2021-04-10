@@ -10,6 +10,8 @@ import AddCrawler from "./components/AddCrawler";
 import AddNewSeed from "./components/AddNewSeed";
 import SeedDetailsComponent from "./components/pages/SeedDetails";
 
+
+
 function App() {
   return (
     <>
