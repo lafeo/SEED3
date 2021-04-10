@@ -1,24 +1,26 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {BACKEND_URL} from "../constants";
+import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
+import styled from "styled-components";
 
-export default function AddNewSeed (){
-  const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhaHVAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiUmFheWFhbiIsImxhc3RuYW1lIjoiU2FodSIsInVzZXJuYW1lIjoibGFmZW8iLCJpZCI6IjYwNzA1MGRhN2Y5ZmI1MDNlNzVkNTA3ZiIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjEsImlhdCI6MTYxODAwODU2NCwiZXhwIjoxNjE4MDE5MzY0fQ.M8c5JdaZJCG4HEHK6XZ8yxeIUgE-XCo7C7iuNdA78a8';
-  const [title,setTitle] = useState('Jack and the beanstalk');
-  const [imageURL,setImageURL] = useState(null);
-  const [description,setDescription] = useState('The classic tale');
-  const [body,setBody] = useState(``);
-  function tinyCallback(value){
-      setBody(value);
+export default function AddNewSeed() {
+  const TOKEN =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhaHVAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiUmFheWFhbiIsImxhc3RuYW1lIjoiU2FodSIsInVzZXJuYW1lIjoibGFmZW8iLCJpZCI6IjYwNzA1MGRhN2Y5ZmI1MDNlNzVkNTA3ZiIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjEsImlhdCI6MTYxODAwODU2NCwiZXhwIjoxNjE4MDE5MzY0fQ.M8c5JdaZJCG4HEHK6XZ8yxeIUgE-XCo7C7iuNdA78a8";
+  const [title, setTitle] = useState("Jack and the beanstalk");
+  const [imageURL, setImageURL] = useState(null);
+  const [description, setDescription] = useState("The classic tale");
+  const [body, setBody] = useState(``);
+  function tinyCallback(value) {
+    setBody(value);
   }
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('title',title);
-    formData.append('imageURL',imageURL);
-    formData.append('description',description);
-    formData.append('body',body);
+    formData.append("title", title);
+    formData.append("imageURL", imageURL);
+    formData.append("description", description);
+    formData.append("body", body);
     console.log(body);
     // axios.post('http://localhost:8010/writing-routes/add-new-seed',formData,{
     //     headers:{
@@ -32,22 +34,108 @@ export default function AddNewSeed (){
     //      console.log("Error adding new seed!");
     //      console.log(err);
     //  })
-
   };
 
-
-
   return (
-      <div>
-        <form>
-          <input value={title} placeholder='Title' onChange={(e)=>{setTitle(e.target.value)}}  type="text"/>
-          <input value={description} placeholder='Description' onChange={(e)=>{setDescription(e.target.value)}}  type="text"/>
-
-            <TinyMCEComponent callback={tinyCallback}/>
-          <input onChange={(e)=>{setImageURL(e.target.files[0])}} id="imageURL" name="imageURL" type="file" accept="image/*" />
-          <button onClick={submitHandler}>Submit</button>
-        </form>
-
-      </div>
+    <AddSeed>
+      <form>
+        <Inputs>
+          <label htmlFor={title}>Enter Title: </label>
+          <Input
+            value={title}
+            placeholder="Title"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            type="text"
+          />
+          <label htmlFor={title}>Enter Desc: </label>
+          <Input
+            value={description}
+            placeholder="Description"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            type="text"
+          />
+        </Inputs>
+        <TinyMCE>
+          <TinyMCEComponent
+            style={{ margin: "10rem" }}
+            callback={tinyCallback}
+          />
+        </TinyMCE>
+        <LastLine>
+          <InputImage
+            onChange={(e) => {
+              setImageURL(e.target.files[0]);
+            }}
+            id="imageURL"
+            name="imageURL"
+            type="file"
+            accept="image/*"
+            style={{ margin: "2rem", color: "#100828" }}
+          />
+          <Button onClick={submitHandler}>Submit</Button>
+        </LastLine>
+      </form>
+    </AddSeed>
   );
-};
+}
+
+const Button = styled.button`
+  padding: 0.3rem 2rem;
+  border-radius: 5px;
+  margin: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s all ease-out;
+  font-size: 1rem;
+  font-weight: bolder;
+  &:hover {
+    background-color: #100828;
+    color: whitesmoke;
+  }
+`;
+
+const LastLine = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  padding: 0.5rem 3rem;
+  margin: 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  background-color: #100828;
+  color: white;
+`;
+
+const Inputs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputImage = styled.input`
+  padding: 0.5rem 3rem;
+  margin: 1rem;
+  font-size: 1rem;
+  #file-upload-button {
+    background-color: black;
+  }
+`;
+
+const AddSeed = styled.div`
+  background: linear-gradient(to top, #100828, whitesmoke);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+const TinyMCE = styled.div`
+  margin: 1rem;
+`;
