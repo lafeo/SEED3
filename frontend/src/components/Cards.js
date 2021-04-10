@@ -44,11 +44,12 @@ function Cards() {
         <div className="cards__container">
 
 
-              {Shuffle(allSeeds)
-                .splice(0, 6)
-                .map((seed) => (
-                  <CardItem seed={seed} />
-                ))}
+
+          {Shuffle(allSeeds)
+              .splice(0, 8)
+              .map((seed) => (
+                  <CardItem crawler={seed} />
+              ))}
 
         </div>
       ) : null}

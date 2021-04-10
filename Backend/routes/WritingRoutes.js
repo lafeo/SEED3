@@ -216,6 +216,27 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
 });
 
 
+router.put('/update-writing-stars/:writingID',CheckAuth,(req,res,next)=>{
+    const writingID = req.params.writingID;
+    const newNumberOfStars =req.body.newNumberOfStars;
+    Writing.findByIdAndUpdate({_id:writingID},
+        {stars:newNumberOfStars},
+        {new:true}).then(updatedWriting=>{
+            console.log("Writing updated!");
+            return res.status(200).json({
+                success:true,
+                writingDetails:updatedWriting
+            })
+    }).catch(err=>{
+        console.log("Error updating writing stars!!");
+        return res.status(404).json({
+            success:false,
+            message:err.message
+        })
+    })
+})
+
+
 router.delete('/delete-seed',CheckAuth,async(req,res,next)=>{
     const id = req.userData.id;
     //check;

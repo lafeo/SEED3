@@ -1,13 +1,14 @@
 
 .cards__item {
-    /*display: flex;*/
-
-    /*flex: 1;*/
-    /* margin: 0 1rem; */
-    width: 18rem;
-    height:18rem;
-    margin: 2vw;
+    background: rgba( 52, 37, 104, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 2.5px );
+    -webkit-backdrop-filter: blur( 2.5px );
     border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 18rem;
+    height:auto;
+    margin: 2vw;
 
 }
 
