@@ -49,7 +49,7 @@ function Navbar() {
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Portfolio
+              All Seeds
               </Link>
             </li>
             <li className='nav-item'>
@@ -58,7 +58,7 @@ function Navbar() {
                 className='nav-links'
                 onClick={closeMobileMenu}
               >
-                Login
+                Our Portals
               </Link>
             </li>
 
