@@ -40,14 +40,14 @@ router.post('/sign-up',async(req,res,next)=>{
     }
     const usernameCheck =await  User.find({username:username})
     if (usernameCheck.length !== 0){
-        return res.status(500).json({
+        return res.status(401).json({
             success:false,
             message : "Username already exists!"
         })
     }
     bcrypt.hash(password,10,(err,hashed)=>{
         if (err){
-            return res.status(500).json({
+            return res.status(401).json({
                 success:false,
                 message : err.message
             })
@@ -55,9 +55,33 @@ router.post('/sign-up',async(req,res,next)=>{
             User.create({username:username,password:hashed,firstName:firstName,
                 lastName:lastName,email:email
             }).then(result=>{
-                console.log(result);
-                return res.json({
+                if (!result){
+                    return res.json({
+                        success:false,
+                        message:"Problems creating new user!"
+                    })
+                }
+                const userDataPayload = {
+                    email:email,
+                    firstName:firstName,
+                    lastname:lastName,
+                    username:username,
+                    id : result._id,
+                    numberOfSeedsWritten:0,
+                    numberOfCrawlsWritten:0
+                };
+                const token =   jwt.sign(userDataPayload,process.env['JWT_KEY'],
+                    {
+                        expiresIn : "3h",
+
+                    },
+
+                )
+                console.log("User signed in!");
+                return res.status(200).json({
                     success:true,
+                    token : token,
+                    userData : userDataPayload
                 })
 
             }).catch(err=>{
@@ -94,6 +118,8 @@ router.delete('/delete-user',CheckAuth,(req,res,next)=>{
 router.post('/sign-in',async(req,res,next)=>{
     const email = req.body.email;
     const password = req.body.password;
+    console.log(email);
+    console.log(password);
     const userInfo = await  User.findOne({email:email});
     if (!userInfo){
         return res.status(401).json({
@@ -125,6 +151,7 @@ router.post('/sign-in',async(req,res,next)=>{
                         },
 
                         )
+                        console.log("User signed in!");
                         return res.status(200).json({
                             success:true,
                             token : token,
