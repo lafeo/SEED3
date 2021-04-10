@@ -8,6 +8,7 @@ import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import AddNewSeed from './components/AddSeed';
 import SignUpComponent from "./components/SignUp";
+import AddCrawler from "./components/AddCrawler";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           {/*<Route exact path='/sign-up' component={SignUp} />*/}
           <Route exact path='/add-new-seed' component={AddNewSeed}/>
           <Route exact path='/sign-up' component={SignUpComponent}/>
+          <Route exact path='/add-new-crawler' component={AddCrawler}/>
         </Switch>
       </Router>
     </>
