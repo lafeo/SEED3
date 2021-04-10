@@ -14,3 +14,16 @@
   border-radius: 20px;
   border: transparent;
 }
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: all 400ms ease-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
