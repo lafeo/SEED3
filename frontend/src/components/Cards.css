@@ -1,5 +1,6 @@
 .cards {
   padding: 4rem;
+  width:100vw;
   background: linear-gradient(#0e0e0e, #100630);
 }
 
