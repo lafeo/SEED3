@@ -6,23 +6,28 @@ import './SignUp.css'
 
 
 export default function SignInComponent (props){
-    const [username,setUsername]  = useState('');
+    const [email,setEmail]  = useState('');
     const [password,setPassword] = useState('');
 
     function onSubmit(e){
-        console.log(username);
-        console.log(password);
-        // e.preventDefault();
+        e.preventDefault();
         axios.post(BACKEND_URL+'user-routes/sign-in',{
-            username:username,
+            email:email,
             password:password,
         },{
             headers:{
                 'Content-Type':"application/json"
             }
         }).then(result=>{
-            console.log("User signed in!");
-            console.log(result);
+            result=result.data;
+            if (result.success){
+                console.log("User signed in!");
+                console.log(result);
+                localStorage.setItem('TOKEN',result.token);
+            }else{
+                console.log("User sign in rejected!");
+                alert(result);
+            }
         }).catch(err=>{
             console.log("Error signing user in!");
             console.log(err);
@@ -32,7 +37,7 @@ export default function SignInComponent (props){
     return (
         <div className="login-form">
             <form >
-                <input className="input-br" type="text" placeholder='Username' onChange={(e)=>{setUsername(e.target.value)}}/>
+                <input className="input-br" type="email" placeholder='Email' onChange={(e)=>{setEmail(e.target.value)}}/>
                 <input className="input-br alag" type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
                 <p className="login-target"><Link className="already" onClick={e=>{props.callback(true)}}> Not Registered? Sign Up!</Link></p>
                 <button className="input-button" onClick={onSubmit}>Submit</button>

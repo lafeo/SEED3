@@ -188,7 +188,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
     const finalSeedResult= [];
     for (let seed of allSeeds){
         const userDetails = await User.findOne({_id:seed.authorID});
-        console.log(userDetails.username);
+
         finalSeedResult.push({
             title:seed.title,
             _id:seed._id,
@@ -199,7 +199,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
                 firstName:userDetails.firstName}
         });
     }
-   console.log("Waited!")
+
     return res.status(200).json({
         success:true,
         allSeeds: finalSeedResult

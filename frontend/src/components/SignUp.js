@@ -25,11 +25,18 @@ export default function SignUpComponent (props){
                 'Content-Type':"application/json"
             }
         }).then(result=>{
-            console.log("New user made!!");
-            console.log(result);
+            result=result.data;
+            if (result.success){
+                console.log("New user made!!");
+                console.log(result);
+            }else{
+                console.log("New user rejected!");
+                alert(result.data.message);
+            }
+
         }).catch(err=>{
             console.log("Error making user!!");
-            console.log(err);
+            alert(err);
         })
     }
 
