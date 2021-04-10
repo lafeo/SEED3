@@ -1,5 +1,6 @@
 require("dotenv").config({ path: __dirname + "/.env" });
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const portNumber = 8010;
@@ -9,19 +10,7 @@ const mongoose = require("mongoose");
 const UserRoutes = require("./routes/UserRoutes");
 const WritingRoutes = require("./routes/WritingRoutes");
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
-});
+
 
 mongoose
   .connect(
@@ -40,8 +29,11 @@ mongoose
         success: true,
       });
     });
-
+    app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(cors());
+
+
     app.listen(portNumber, () => {
       console.log("Listening on " + portNumber.toString());
     });

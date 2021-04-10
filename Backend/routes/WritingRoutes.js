@@ -18,7 +18,7 @@ const getNumberOfCrawls = async(id)=>{
 const multer = require('multer');
 
 function fileFilter(req,file,cb){
-    if (file.mimetype == 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg'){
         cb(null,true);
     }else{
         cb({
@@ -47,7 +47,18 @@ const upload = multer({storage:storage,
 router.post('/add-new-crawler',CheckAuth,async(req,res,next)=>{
     const id = req.userData.id;
     const parentWritingId= req.body.parentWritingId;
-    const parentNumberOfNodes = (await Writing.findOne({_id:parentWritingId})).nodes;
+    let parentNumberOfNodes ;
+    console.log(parentWritingId);
+    try{
+        parentNumberOfNodes= (await Writing.findOne({_id:parentWritingId})).nodes;
+    }catch(e){
+        console.log(e);
+        console.log(parentWritingId);
+        return res.status(401).json({
+            success:false,
+            message:"Not authenticated"
+        })
+    }
     //getting the parentId;
     //checking if the same body exists;
     const bodyCheck = await Writing.find({body:req.body.body});
@@ -133,6 +144,8 @@ router.post('/add-new-crawler',CheckAuth,async(req,res,next)=>{
 
 
 })
+
+
 //working
 router.post('/add-new-seed',CheckAuth,upload.single('imageURL'),async(req,res,next)=>{
     const id = req.userData.id;
@@ -141,6 +154,7 @@ router.post('/add-new-seed',CheckAuth,upload.single('imageURL'),async(req,res,ne
     const imageURL = req.file.path;
     const description = req.body.description;
     //checking for copy;
+    console.log("Called!")
     const bodyCheck = await Writing.find({body:body});
     if  (bodyCheck.length !== 0){
         return res.status(401).json({

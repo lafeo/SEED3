@@ -6,7 +6,7 @@ import './HeroSection.css';
 function HeroSection() {
   return (
     <div className='hero-container'>
-      <video src='/videos/video-1.mp4' autoPlay loop muted />
+      <video id={'main-video'} src='/videos/video-1.mp4' autoPlay loop muted />
       <h2>What are you waiting for?</h2>
       <p>Start Contributing</p>
       <p>to</p>

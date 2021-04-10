@@ -27,6 +27,8 @@ video {
       transform: translateX(0);
   }
 }
+
+
 @keyframes moveRight {
   0% {
       opacity: 0;
@@ -94,6 +96,7 @@ video {
     font-size: 80px;
   }
 }
+
 
 @media screen and (max-width: 768px) {
   .hero-container > h2 {
