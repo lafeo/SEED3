@@ -28,6 +28,8 @@ export default function SeedDetailsComponent(props) {
       .then((allCrawlers) => {
         if (allCrawlers.data.success) {
           console.log("All crawlers arrived!");
+          console.log(allCrawlers.data);
+          console.log(mainSeed);
 
           setAllCrawlers(allCrawlers.data.allCrawlers);
           setShowData(true);
@@ -41,13 +43,23 @@ export default function SeedDetailsComponent(props) {
       });
   }, []);
 
+  const ftch = fetch("http://localhost:8010/get-seed/" + mainSeed._id);
+  console.log(fetch); //this is what comes back from the --> the get-seeds ADD THIS -- (1)
+
   return (
     <Full>
       <SeedContainer>
         <SeedWrapper>
           <Seed mainSeed={mainSeed}>
-            <img src={BACKEND_URL + mainSeed.imageURL} alt="img"></img>
-            <h1>{mainSeed.title}</h1>
+            {/* <img src={BACKEND_URL + mainSeed.imageURL} alt="img"></img> */}
+            <h5>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Consectetur voluptates dolorem totam delectus ipsam hic earum,
+              assumenda porro libero dolorum. Debitis iure beatae velit, fugiat
+              vel maiores itaque eius ut eum id consequatur dolores eaque
+              aspernatur accusamus consequuntur obcaecati. Dolore vitae
+              praesentium, ex dolores ipsa est recusandae repellendus nulla cum.
+            </h5>
           </Seed>
         </SeedWrapper>
         <CrawlerContainer>
@@ -69,25 +81,30 @@ export default function SeedDetailsComponent(props) {
 const Full = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("/images/wallpaper.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   overflow: hidden;
+  height: 87vh;
 `;
 
 const SeedContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: scroll; */
 `;
 
 const SeedWrapper = styled.div`
   color: white;
   /* margin: 3rem; */
-  height: 60%;
+  height: 80%;
   max-width: 50vw;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  margin: 4rem 5rem;
+  margin: 2.5rem 4.5rem;
+  /* transform: translateY(-25%); */
+  overflow: scroll;
 `;
 
 const Seed = styled.div`
@@ -99,14 +116,14 @@ const Seed = styled.div`
   justify-content: center;
   padding: 1rem 3rem 9rem 3rem;
 
-  img {
+  /* img {
     width: 40%;
     height: 220px;
     border-radius: 50%;
     align-items: center;
     text-align: center;
     margin-top: 2rem;
-  }
+  } */
 `;
 
 const Crawler = styled.div``;
@@ -118,6 +135,10 @@ const CrawlerContainer = styled.div`
   align-items: center;
   backdrop-filter: blur(5px);
   background-color: rgba(0, 26, 255, 0.1);
+  border-radius: 20px;
+  height: 80%;
+  transform: translateY(6%);
+  margin-right: 1rem;
 `;
 
 const CrawlerWrapper = styled.div`

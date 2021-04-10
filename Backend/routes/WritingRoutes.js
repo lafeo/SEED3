@@ -382,7 +382,7 @@ router.get('/get-seed/:id',(req,res,next)=>{
     if (!seedId){
         return res.status(401).json({
             success:false,
-            message:"Id not provided!"
+            message:"ID not provided!"
         })
     }
     Writing.findOne({_id:seedId}).then(seed=>{
