@@ -5,6 +5,8 @@ import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
 import "./Details.scss";
 
+import CrawlerModal from "../CrawlerModal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as outlined } from "@fortawesome/free-regular-svg-icons";
@@ -90,43 +92,6 @@ export default function SeedDetailsComponent(props) {
       });
   }, []);
 
-  //   MODAL
-  const customStyles = {
-    content: {
-      top: "55%",
-      left: "50%",
-      right: "40%",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      background: "#100B18",
-      opacity: 0.9,
-      boxShadow: "20px 20px 10px gray",
-      borderRadius: "20px",
-      width: "70%",
-      height: "70%",
-    },
-    cursor: "pointer",
-  };
-
-  var subtitle;
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(!modalIsOpen);
-  };
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "white";
-  }
-
-  const closeModal = () => {
-    setIsOpen(!modalIsOpen);
-  };
-
-  Modal.setAppElement("#root");
-
   return (
     <Full>
       <SeedContainer>
@@ -157,44 +122,7 @@ export default function SeedDetailsComponent(props) {
           {allCrawlers.length === 0 ? (
             <h1>No Crawls</h1>
           ) : (
-            allCrawlers.map((crawler) => (
-              <CrawlerWrapper key={crawler.authorID} onClick={openModal}>
-                <Crawler key={crawler.authorID}>
-                  {modalIsOpen ? (
-                    <Modal
-                      key={crawler.authorID}
-                      closeTimeoutMS={500}
-                      isOpen={modalIsOpen}
-                      onAfterOpen={afterOpenModal}
-                      onRequestClose={closeModal}
-                      style={customStyles}
-                      contentLabel="Example Modal"
-                    >
-                      <HeadingContainer>
-                        <h2
-                          ref={(_subtitle) => (subtitle = _subtitle)}
-                          style={{ color: "blue" }}
-                        >
-                          {crawler.title}
-                        </h2>
-                        <CrawlerAuthorName>
-                          By {crawler.userDetails.username}
-                        </CrawlerAuthorName>
-                      </HeadingContainer>
-                      <DangerousText
-                        dangerouslySetInnerHTML={{ __html: crawler.body }}
-                      />
-                      <ButtonWrapper>
-                        <Button onClick={closeModal}>Close</Button>
-                      </ButtonWrapper>
-                    </Modal>
-                  ) : (
-                    ""
-                  )}
-                  <div>Crawl By {crawler.userDetails.username}</div>
-                </Crawler>
-              </CrawlerWrapper>
-            ))
+            allCrawlers.map((crawler) => <CrawlerModal crawler={crawler} />)
           )}
 
           {props.location.state.isLoggedIn ? (
@@ -226,29 +154,29 @@ const StarsArea = styled.div`
   font-size: 1.6rem;
 `;
 
-const DangerousText = styled.div`
-  font-size: 1.2rem;
-  color: white;
-`;
-const CrawlerAuthorName = styled.div`
-  font-size: 1.2rem;
-  color: white;
-  text-align: center;
-`;
-const HeadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  font-size: 1.5rem;
-  flex-direction: column;
-`;
+// const DangerousText = styled.div`
+//   font-size: 1.2rem;
+//   color: white;
+// `;
+// const CrawlerAuthorName = styled.div`
+//   font-size: 1.2rem;
+//   color: white;
+//   text-align: center;
+// // `;
+// const HeadingContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   font-size: 1.5rem;
+//   flex-direction: column;
+// `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+// const ButtonWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 const Button = styled.button`
   padding: 0.3rem 2rem;
@@ -330,7 +258,7 @@ const CrawlerContainer = styled.div`
   backdrop-filter: blur(5px);
   background-color: rgba(0, 26, 255, 0.1);
   border-radius: 20px;
-  height: 80%;
+  height: 75%;
   transform: translateY(6%);
   margin-right: 1rem;
 `;
