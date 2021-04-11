@@ -72,8 +72,8 @@ export default function SeedDetailsComponent(props) {
             .then((allCrawlers) => {
               if (allCrawlers.data.success) {
                 console.log("All crawlers arrived!");
-                console.log(allCrawlers.data);
-                console.log(mainSeed);
+
+
 
                 setAllCrawlers(allCrawlers.data.allCrawlers);
               } else {
@@ -107,7 +107,9 @@ export default function SeedDetailsComponent(props) {
       borderRadius: "20px",
       width: "70%",
       height: "70%",
+
     },
+    cursor: "pointer"
   };
 
   var subtitle;
@@ -159,8 +161,9 @@ export default function SeedDetailsComponent(props) {
               <h1>No Crawls</h1>
             ) : (
               allCrawlers.map((crawler) => (
-                  <CrawlerWrapper>
-                <Crawler key={crawler.authorID} onClick={openModal}>
+                  <CrawlerWrapper
+                                  onClick={openModal}>
+                <Crawler key={crawler.authorID} >
                   {modalIsOpen ? (
                     <Modal
                       closeTimeoutMS={500}
@@ -339,4 +342,5 @@ const CrawlerWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   padding: 2rem 3rem;
   border-radius: 20px;
+  cursor:pointer;
 `;

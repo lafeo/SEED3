@@ -30,7 +30,9 @@ function HeroSection(props) {
 
   const showLoggingInForms = () =>
     showSignUpForm ? (
-      <SignUpComponent callback={callbackForShowSignUpForm} />
+      <SignUpComponent         signInCallBack={callbackToSetSignInState}
+                               callback={callbackForShowSignUpForm}
+      />
     ) : (
       <SignInComponent
         signInCallBack={callbackToSetSignInState}

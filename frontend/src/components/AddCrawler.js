@@ -3,12 +3,13 @@ import axios from "axios";
 import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
+import {useHistory} from 'react-router-dom';
 
 export default function AddCrawler(props) {
   function tinyCallback(value) {
     setBody(value);
   }
-
+    const history = useHistory();
   const TOKEN = localStorage.getItem("TOKEN");
 
   const [description, setDescription] = useState(props.location.state.seed.description);
@@ -31,6 +32,8 @@ export default function AddCrawler(props) {
 
         console.log("New crawler added!");
         console.log(response);
+        history.push('/');
+
     }).catch(err=>{
         console.log("Error adding new crawler!");
         console.log(err);
