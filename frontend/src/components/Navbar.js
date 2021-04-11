@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import './Navbar.css';
 import axios from 'axios'
 import {BACKEND_URL} from "../constants";
@@ -9,7 +9,7 @@ function Navbar(props) {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [isLoggedIn,setIsLoggedIn] = useState(props.isLoggedIn);
-
+  const history  = useHistory();
   const TOKEN = localStorage.getItem('TOKEN');
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
@@ -36,6 +36,8 @@ function Navbar(props) {
     setIsLoggedIn(false);
 
     props.loggedInCallback(false,{});
+    history.push('/');
+
   }
 
 

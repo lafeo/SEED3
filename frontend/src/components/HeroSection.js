@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import Link from "react-router-dom";
 import "../App.css";
 import { Button } from "./Button";
 import "./HeroSection.css";
@@ -10,7 +11,7 @@ function HeroSection(props) {
   const [showSignUpForm, setShowSignUpForm] = useState(!(props.isLoggedIn));
   const [isLoggedIn,setIsLoggedIn] = useState(props.isLoggedIn);
   const [userDetails,setUserDetails] = useState(props.userDetails);
-  const TOKEN = localStorage.getItem('TOKEN');
+
   function callbackForShowSignUpForm(value) {
     setShowSignUpForm(value);
   };

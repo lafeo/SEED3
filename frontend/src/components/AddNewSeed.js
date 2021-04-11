@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
+import {useHistory}from 'react-router-dom';
 import axios from "axios";
 import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
-
 export default function AddNewSeed() {
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhaHVAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiUmFheWFhbiIsImxhc3RuYW1lIjoiU2FodSIsInVzZXJuYW1lIjoibGFmZW8iLCJpZCI6IjYwNzA1MGRhN2Y5ZmI1MDNlNzVkNTA3ZiIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjEsImlhdCI6MTYxODAwODU2NCwiZXhwIjoxNjE4MDE5MzY0fQ.M8c5JdaZJCG4HEHK6XZ8yxeIUgE-XCo7C7iuNdA78a8";
+  const TOKEN = localStorage.getItem('TOKEN')
+  const history = useHistory();
   const [title, setTitle] = useState("Jack and the beanstalk");
   const [imageURL, setImageURL] = useState(null);
   const [description, setDescription] = useState("The classic tale");
   const [body, setBody] = useState(``);
+
+
+
+
   function tinyCallback(value) {
     setBody(value);
   }
