@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Cards.css";
 import CardItem from "./CardItem";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 import { BACKEND_URL } from "../constants";
 
@@ -49,27 +51,33 @@ function Cards() {
             ))}
         </div>
       ) : null}
+      <AddLinks>
+        <Link
+          to="/services"
+          style={{
+            color: "white",
+            textDecoration: "none",
+            borderBottom: "2px solid white",
+          }}
+        >
+          Show all
+        </Link>
+      </AddLinks>
     </div>
   );
 }
 
-export default Cards;
+const AddLinks = styled.div`
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease-out all;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
 
-/* <CardItem
-                src={BACKEND_URL + allSeeds[0].imageURL}
-                text={allSeeds[0].title}
-                label="Adventure"
-                path="/services"
-              />
-              <CardItem
-                src={BACKEND_URL + allSeeds[1].imageURL}
-                text={allSeeds[1].title}
-                label="Luxury"
-                path="/services"
-              />
-              <CardItem
-                src={BACKEND_URL + allSeeds[2].imageURL}
-                text={allSeeds[2].title}
-                label={allSeeds[2].author}
-                path="/services"
-              /> */
+export default Cards;

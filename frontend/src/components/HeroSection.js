@@ -40,36 +40,35 @@ function HeroSection(props) {
 
   return (
     <div className="container">
-
       <div className="hero-container left-container">
         <video src="/videos/video-1.mp4" autoPlay loop muted />
-          {props.isLoggedIn ?    <div className="inside-video-2">
-
-                    <h1 className={'seed'}>
-                      Hello,
-                  </h1>
-              <h1 className="seed">
-
-
-
-                  <span className="right_animation">{props.userDetails.username}!</span>
-              </h1>
-          </div>:   <div className="inside-video">
-              <h2>What are you waiting for?</h2>
-              <p>Start Contributing</p>
-              <p>to</p>
-              <h1 className="seed">
-                  <span className="right_animation">se</span>.
-                  <span className="left_animation">ed</span>
-              </h1>
-          </div>}
+        {props.isLoggedIn ? (
+          <div className="inside-video-2">
+            <h1 className={"seed"}>Hello,</h1>
+            <h1 className="seed">
+              <span className="right_animation">
+                {props.userDetails.username}!
+              </span>
+            </h1>
+          </div>
+        ) : (
+          <div className="inside-video">
+            <h2>What are you waiting for?</h2>
+            <p>Start Contributing</p>
+            <p>to</p>
+            <h1 className="seed">
+              <span className="right_animation">se</span>.
+              <span className="left_animation">ed</span>
+            </h1>
+          </div>
+        )}
       </div>
       <div className="middle-line">
         <div className="line"></div>
       </div>
       <div className="right-container" id="overrule">
         {isLoggedIn ? (
-          <MainHeading>Seed Details</MainHeading>
+          <MainHeading>Your Profile</MainHeading>
         ) : (
           <h1>{showSignUpForm ? "Sign Up" : "Log In"}</h1>
         )}
@@ -105,7 +104,7 @@ function HeroSection(props) {
 }
 
 const MainHeading = styled.h1`
-  background-image: linear-gradient(to top, #a35dff 50%, #fbc2eb 60%);
+  background-image: linear-gradient(to top, #e9d9ff 50%, #fbc2eb 60%);
   background-size: 100%;
   background-clip: text;
   text-fill-color: transparent;
@@ -113,6 +112,7 @@ const MainHeading = styled.h1`
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
+  font-size: 2.5rem;
 `;
 
 const Button = styled.button`
