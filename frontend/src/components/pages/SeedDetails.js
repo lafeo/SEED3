@@ -14,7 +14,7 @@ export default function SeedDetailsComponent(props) {
   const [starCounter,setStarCounter] = useState(props.location.state.seed.stars);
   const [seedStarred,setSeedStarred] = useState(false);
   const [body,setBody] = useState('');
-  const TOKEN='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt1bmFsYmhhdGlhQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikt1bmFsIiwibGFzdG5hbWUiOiJCaGF0aWEiLCJ1c2VybmFtZSI6IktCaGF0aWEiLCJpZCI6IjYwNzA1MGYyN2Y5ZmI1MDNlNzVkNTA4MCIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjEsImlhdCI6MTYxODA5MTU3NiwiZXhwIjoxNjE4MTAyMzc2fQ.RAw9X5ovxa61dhM-nnt0ztaB1ElpQ-a2dOME9rJrxlg';
+  const TOKEN=localStorage.getItem('TOKEN');
   function renderCrawlers() {
     return allCrawlers.map((crawler) => <h1>crawler.authorID</h1>);
   }
@@ -78,9 +78,6 @@ export default function SeedDetailsComponent(props) {
 
 
   }, []);
-
-  const ftch = fetch("http://localhost:8010/get-seed/" + mainSeed._id);
-  console.log(fetch); //this is what comes back from the --> the get-seeds ADD THIS -- (1)
 
   //   MODAL
   const customStyles = {

@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
-function Navbar() {
+import axios from 'axios'
+import {BACKEND_URL} from "../constants";
+import CheckUserTokenValidity from "./shared/LoginChecker";
+function Navbar(props) {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [isLoggedIn,setIsLoggedIn] = useState(props.isLoggedIn);
 
+  const TOKEN = localStorage.getItem('TOKEN');
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
@@ -19,8 +23,21 @@ function Navbar() {
   };
 
   useEffect(() => {
+    setIsLoggedIn(props.isLoggedIn);
+
+
+
     showButton();
-  }, []);
+  },[]);
+
+  function onLogOut(){
+    localStorage.removeItem('TOKEN');
+    console.log("Logged out!");
+    setIsLoggedIn(false);
+
+    props.loggedInCallback(false,{});
+  }
+
 
   window.addEventListener('resize', showButton);
 
@@ -62,17 +79,9 @@ function Navbar() {
               </Link>
             </li>
 
-            <li>
-              <Link
-                to='/sign-up'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign Up
-              </Link>
-            </li>
+
           </ul>
-          {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
+          {isLoggedIn ?<Button onClick={onLogOut} buttonStyle='btn--outline'>Log Out</Button>:null}
         </div>
       </nav>
     </>

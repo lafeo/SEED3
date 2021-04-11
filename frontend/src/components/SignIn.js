@@ -24,6 +24,7 @@ export default function SignInComponent (props){
                 console.log("User signed in!");
                 console.log(result);
                 localStorage.setItem('TOKEN',result.token);
+                props.signInCallBack(true,result.userData);
             }else{
                 console.log("User sign in rejected!");
                 alert(result);

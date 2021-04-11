@@ -114,6 +114,15 @@ router.delete('/delete-user',CheckAuth,(req,res,next)=>{
     })
 })
 
+
+router.get('/check-user-validity',CheckAuth,(req,res,next)=>{
+    const userData = req.userData;
+    return res.json({
+            success:true,
+            userData:userData,
+    })
+})
+
 //working
 router.post('/sign-in',async(req,res,next)=>{
     const email = req.body.email;
