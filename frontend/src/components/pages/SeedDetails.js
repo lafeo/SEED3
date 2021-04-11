@@ -5,15 +5,15 @@ import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
 import "./Details.scss";
 
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faStar} from '@fortawesome/free-solid-svg-icons';
-import {faStar as outlined} from '@fortawesome/free-regular-svg-icons';
-import {Link} from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as outlined } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
   const [mainSeed, setMainSeed] = useState(props.location.state.seed);
+  const [wait, setWait] = useState(true);
 
   const [starCounter, setStarCounter] = useState(
     props.location.state.seed.stars
@@ -113,19 +113,18 @@ export default function SeedDetailsComponent(props) {
   var subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(!modalIsOpen);
-  }
+  };
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = "white";
   }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+  const closeModal = () => {
+    setIsOpen(!modalIsOpen);
+  };
 
   Modal.setAppElement("#root");
 
@@ -142,10 +141,12 @@ export default function SeedDetailsComponent(props) {
             {" "}
             By {mainSeed.userDetails.username}
             <StarsArea>
-
-                {props.location.state.isLoggedIn ? <FontAwesomeIcon onClick={changeSeedStarred} icon={seedStarred ? faStar : outlined}/> :null}
-
-
+              {props.location.state.isLoggedIn ? (
+                <FontAwesomeIcon
+                  onClick={changeSeedStarred}
+                  icon={seedStarred ? faStar : outlined}
+                />
+              ) : null}
             </StarsArea>
           </AuthorName>
           <Seed mainSeed={mainSeed}>
@@ -154,15 +155,15 @@ export default function SeedDetailsComponent(props) {
         </SeedWrapper>
 
         <CrawlerContainer>
-
-            {allCrawlers.length === 0 ? (
-              <h1>No Crawls</h1>
-            ) : (
-              allCrawlers.map((crawler) => (
-                  <CrawlerWrapper>
+          {allCrawlers.length === 0 ? (
+            <h1>No Crawls</h1>
+          ) : (
+            allCrawlers.map((crawler) => (
+              <CrawlerWrapper key={crawler.authorID}>
                 <Crawler key={crawler.authorID} onClick={openModal}>
                   {modalIsOpen ? (
                     <Modal
+                      key={crawler.authorID}
                       closeTimeoutMS={500}
                       isOpen={modalIsOpen}
                       onAfterOpen={afterOpenModal}
@@ -193,18 +194,23 @@ export default function SeedDetailsComponent(props) {
                   )}
                   <div>Crawl By {crawler.userDetails.username}</div>
                 </Crawler>
-                  </CrawlerWrapper>
-              ))
+              </CrawlerWrapper>
+            ))
+          )}
 
-            )}
-
-            {props.location.state.isLoggedIn ?  <button> <Link className="cards__item__link"  to={{
+          {props.location.state.isLoggedIn ? (
+            <Link
+              to={{
                 pathname: "/add-new-crawler",
-                state:{
-                    seed:mainSeed,
-                    body:body,
-                }
-            }}> Add New Crawler</Link></button>:null}
+                state: {
+                  seed: mainSeed,
+                  body: body,
+                },
+              }}
+            >
+              <Button>Add New Crawler</Button>
+            </Link>
+          ) : null}
         </CrawlerContainer>
       </SeedContainer>
     </Full>
