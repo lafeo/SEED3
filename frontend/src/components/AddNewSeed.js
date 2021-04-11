@@ -26,7 +26,7 @@ export default function AddNewSeed() {
     formData.append("description", description);
     formData.append("body", body);
 
-    axios.post('http://localhost:8010/writing-routes/add-new-seed',formData,{
+    axios.post(`${BACKEND_URL}writing-routes/add-new-seed`,formData,{
         headers:{
             'Content-Type':"multipart/form-data",
             'Authorization':`Bearer ${TOKEN}`

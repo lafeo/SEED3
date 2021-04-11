@@ -11,7 +11,7 @@ export default function Services() {
   const [showSeeds, setShowSeeds] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8010/writing-routes/get-all-seeds/")
+      .get(`${BACKEND_URL}writing-routes/get-all-seeds/`)
       .then((allSeeds) => {
         console.log(allSeeds.data);
         setAllSeeds(allSeeds.data.allSeeds);

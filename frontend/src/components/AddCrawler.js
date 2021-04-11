@@ -23,7 +23,7 @@ export default function AddCrawler(props) {
     };
     e.preventDefault();
     console.log(detailsToSend);
-    axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
+    axios.post(`${BACKEND_URL}writing-routes/add-new-crawler`,detailsToSend,{
         headers:{
             'Content-Type':"application/json",
             'Authorization':`Bearer ${TOKEN}`
