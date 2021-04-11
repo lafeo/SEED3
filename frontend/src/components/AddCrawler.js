@@ -3,16 +3,18 @@ import axios from "axios";
 import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 export default function AddCrawler(props) {
   function tinyCallback(value) {
     setBody(value);
   }
-    const history = useHistory();
+  const history = useHistory();
   const TOKEN = localStorage.getItem("TOKEN");
 
-  const [description, setDescription] = useState(props.location.state.seed.description);
+  const [description, setDescription] = useState(
+    props.location.state.seed.description
+  );
   const [body, setBody] = useState("");
 
   const submitHandler = async (e) => {
@@ -23,21 +25,26 @@ export default function AddCrawler(props) {
     };
     e.preventDefault();
     console.log(detailsToSend);
-    axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
-        headers:{
-            'Content-Type':"application/json",
-            'Authorization':`Bearer ${TOKEN}`
+    axios
+      .post(
+        "http://localhost:8010/writing-routes/add-new-crawler",
+        detailsToSend,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${TOKEN}`,
+          },
         }
-    }).then(response=>{
-
+      )
+      .then((response) => {
         console.log("New crawler added!");
         console.log(response);
-        history.push('/');
-
-    }).catch(err=>{
+        history.push("/");
+      })
+      .catch((err) => {
         console.log("Error adding new crawler!");
         console.log(err);
-    })
+      });
   };
 
   return (
@@ -56,7 +63,10 @@ export default function AddCrawler(props) {
         </Inputs>
         {/*<textarea  onChange={(e) => (setBody(e.target.value))} placeholder='Body' name="body2" id="body2"/>*/}
         <TinyMCE>
-          <TinyMCEComponent body={props.location.state.body} callback={tinyCallback} />
+          <TinyMCEComponent
+            body={props.location.state.body}
+            callback={tinyCallback}
+          />
         </TinyMCE>
         <LastLine>
           <Button onClick={submitHandler}>Submit</Button>
@@ -94,6 +104,7 @@ const Input = styled.input`
   border-radius: 10px;
   background-color: #100828;
   color: white;
+  width: 80%;
 `;
 
 const Inputs = styled.div`
