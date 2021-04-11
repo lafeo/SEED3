@@ -50,7 +50,7 @@ function HeroSection(props) {
 
       <div className="hero-container left-container">
         <video src="/videos/video-1.mp4" autoPlay loop muted />
-          {props.isLoggedIn ?    <div className="inside-video">
+          {props.isLoggedIn ?    <div className="inside-video-2">
 
                     <h1 className={'seed'}>
                       Hello,
