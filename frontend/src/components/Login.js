@@ -1,32 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Cookies from "js-cookie";
-import {BACKEND_URL} from "../constants";
+import { BACKEND_URL } from "../constants";
 
 const Login = () => {
-  const [email,setEmail] = useState('aryamannsingh9@gmail.com');
-  const [password,setPassword] = useState('15052002')
-
-
+  const [email, setEmail] = useState("aryamannsingh9@gmail.com");
+  const [password, setPassword] = useState("15052002");
 
   const submitHandler = async (e) => {
-    const dataToSend = {email:email,password:password};
+    const dataToSend = { email: email, password: password };
     e.preventDefault();
     console.log(dataToSend);
 
-    axios.post(`${BACKEND_URL}/user-routes/sign-in/`,dataToSend,
-        {
-
-          headers: {'Content-Type': 'application/json'}
-        }
-      )
-      .then(result=>{
+    axios
+      .post(`${BACKEND_URL}/user-routes/sign-in/`, dataToSend, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((result) => {
         console.log(result.data);
-    })
+      })
       .catch((event) => console.log(event.message));
   };
-
 
   return (
     <div>
@@ -38,7 +32,9 @@ const Login = () => {
             type="email"
             placeholder="Enter your Email Address"
             value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
         </div>
         <div>
@@ -48,7 +44,9 @@ const Login = () => {
             type="password"
             placeholder="Enter a password"
             value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
         </div>
         <Input type="submit" value="Login" />

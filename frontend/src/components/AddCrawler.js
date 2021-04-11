@@ -11,29 +11,30 @@ export default function AddCrawler(props) {
 
   const TOKEN = localStorage.getItem("TOKEN");
 
-  const [description, setDescription] = useState("The classic tale");
+  const [description, setDescription] = useState(props.location.state.seed.description);
   const [body, setBody] = useState("");
 
   const submitHandler = async (e) => {
     const detailsToSend = {
       description: description,
       body: body,
-      parentWritingId: "6070da14ad26c886066c8c81",
+      parentWritingId: props.location.state.seed._id,
     };
     e.preventDefault();
     console.log(detailsToSend);
-    // axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
-    //     headers:{
-    //         'Content-Type':"application/json",
-    //         'Authorization':`Bearer ${TOKEN}`
-    //     }
-    // }).then(response=>{
-    //     console.log("New crawler added!");
-    //     console.log(response);
-    // }).catch(err=>{
-    //     console.log("Error adding new crawler!");
-    //     console.log(err);
-    // })
+    axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
+        headers:{
+            'Content-Type':"application/json",
+            'Authorization':`Bearer ${TOKEN}`
+        }
+    }).then(response=>{
+
+        console.log("New crawler added!");
+        console.log(response);
+    }).catch(err=>{
+        console.log("Error adding new crawler!");
+        console.log(err);
+    })
   };
 
   return (
