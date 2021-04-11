@@ -12,7 +12,7 @@ function Home(props) {
         {props.userDetailsLoaded ?
             (<>
                 <HeroSection userDetails={props.userDetails} isLoggedIn={props.isLoggedIn} setIsUserLoggedIn={props.setIsUserLoggedIn}/>
-            <Cards/>
+            <Cards isLoggedIn={props.isLoggedIn}/>
             <Footer />
             </>)
             :null}

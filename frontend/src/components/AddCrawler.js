@@ -4,37 +4,37 @@ import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
 
-export default function AddCrawler() {
+export default function AddCrawler(props) {
   function tinyCallback(value) {
     setBody(value);
   }
 
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt1bmFsYmhhdGlhQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikt1bmFsIiwibGFzdG5hbWUiOiJCaGF0aWEiLCJ1c2VybmFtZSI6IktCaGF0aWEiLCJpZCI6IjYwNzA1MGYyN2Y5ZmI1MDNlNzVkNTA4MCIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjAsImlhdCI6MTYxODAxMzgzNiwiZXhwIjoxNjE4MDI0NjM2fQ.UrvgUTlwXoUcIBVY9ZIP8dx4pODVGRwNsBeBObZ1VVk";
+  const TOKEN = localStorage.getItem("TOKEN");
 
-  const [description, setDescription] = useState("The classic tale");
+  const [description, setDescription] = useState(props.location.state.seed.description);
   const [body, setBody] = useState("");
 
   const submitHandler = async (e) => {
     const detailsToSend = {
       description: description,
       body: body,
-      parentWritingId: "6070da14ad26c886066c8c81",
+      parentWritingId: props.location.state.seed._id,
     };
     e.preventDefault();
     console.log(detailsToSend);
-    // axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
-    //     headers:{
-    //         'Content-Type':"application/json",
-    //         'Authorization':`Bearer ${TOKEN}`
-    //     }
-    // }).then(response=>{
-    //     console.log("New crawler added!");
-    //     console.log(response);
-    // }).catch(err=>{
-    //     console.log("Error adding new crawler!");
-    //     console.log(err);
-    // })
+    axios.post('http://localhost:8010/writing-routes/add-new-crawler',detailsToSend,{
+        headers:{
+            'Content-Type':"application/json",
+            'Authorization':`Bearer ${TOKEN}`
+        }
+    }).then(response=>{
+
+        console.log("New crawler added!");
+        console.log(response);
+    }).catch(err=>{
+        console.log("Error adding new crawler!");
+        console.log(err);
+    })
   };
 
   return (
@@ -53,7 +53,7 @@ export default function AddCrawler() {
         </Inputs>
         {/*<textarea  onChange={(e) => (setBody(e.target.value))} placeholder='Body' name="body2" id="body2"/>*/}
         <TinyMCE>
-          <TinyMCEComponent callback={tinyCallback} />
+          <TinyMCEComponent body={props.location.state.body} callback={tinyCallback} />
         </TinyMCE>
         <LastLine>
           <Button onClick={submitHandler}>Submit</Button>

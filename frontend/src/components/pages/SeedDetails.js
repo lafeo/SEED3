@@ -4,13 +4,17 @@ import axios from "axios";
 import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
 import "./Details.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar as outlined } from "@fortawesome/free-regular-svg-icons";
+
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
+import {faStar as outlined} from '@fortawesome/free-regular-svg-icons';
+import {Link} from "react-router-dom";
+
 
 export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
   const [mainSeed, setMainSeed] = useState(props.location.state.seed);
+
   const [starCounter, setStarCounter] = useState(
     props.location.state.seed.stars
   );
@@ -122,6 +126,7 @@ export default function SeedDetailsComponent(props) {
     setIsOpen(false);
   }
 
+
   Modal.setAppElement("#root");
 
   return (
@@ -137,10 +142,10 @@ export default function SeedDetailsComponent(props) {
             {" "}
             By {mainSeed.userDetails.username}
             <StarsArea>
-              <FontAwesomeIcon
-                onClick={changeSeedStarred}
-                icon={seedStarred ? faStar : outlined}
-              />
+
+                {props.location.state.isLoggedIn ? <FontAwesomeIcon onClick={changeSeedStarred} icon={seedStarred ? faStar : outlined}/> :null}
+
+
             </StarsArea>
           </AuthorName>
           <Seed mainSeed={mainSeed}>
@@ -149,11 +154,12 @@ export default function SeedDetailsComponent(props) {
         </SeedWrapper>
 
         <CrawlerContainer>
-          <CrawlerWrapper>
+
             {allCrawlers.length === 0 ? (
               <h1>No Crawls</h1>
             ) : (
               allCrawlers.map((crawler) => (
+                  <CrawlerWrapper>
                 <Crawler key={crawler.authorID} onClick={openModal}>
                   {modalIsOpen ? (
                     <Modal
@@ -187,9 +193,18 @@ export default function SeedDetailsComponent(props) {
                   )}
                   <div>Crawl By {crawler.userDetails.username}</div>
                 </Crawler>
+                  </CrawlerWrapper>
               ))
+
             )}
-          </CrawlerWrapper>
+
+            {props.location.state.isLoggedIn ?  <button> <Link className="cards__item__link"  to={{
+                pathname: "/add-new-crawler",
+                state:{
+                    seed:mainSeed,
+                    body:body,
+                }
+            }}> Add New Crawler</Link></button>:null}
         </CrawlerContainer>
       </SeedContainer>
     </Full>
