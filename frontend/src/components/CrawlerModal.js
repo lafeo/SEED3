@@ -72,7 +72,15 @@ const CrawlerModal = ({ crawler }) => {
         ) : (
           ""
         )}
-        <div>Crawl By {crawler.userDetails.username}</div>
+        <div>
+          <h3 style={{ textAlign: "center", fontSize: "1.5rem" }}>Crawl By</h3>
+          <br />
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ fontFamily: "Lobster Two" }}>
+              {crawler.userDetails.username}
+            </h2>
+          </div>
+        </div>
       </Crawler>
     </CrawlerWrapper>
   );
@@ -111,8 +119,8 @@ const Button = styled.button`
   font-size: 1rem;
   font-weight: bolder;
   &:hover {
-    background-color: #100828;
-    color: whitesmoke;
+    background-color: rgba(17, 30, 102, 0.4);
+    color: white;
   }
 `;
 const Crawler = styled.div`
@@ -125,7 +133,7 @@ const CrawlerWrapper = styled.div`
   max-width: 50%;
   height: 30%;
   backdrop-filter: blur(5px);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(76, 73, 255, 0.2);
   padding: 2rem 3rem;
   border-radius: 20px;
   cursor: pointer;
