@@ -7,9 +7,9 @@ import styled from "styled-components";
 export default function AddNewSeed() {
   const TOKEN = localStorage.getItem('TOKEN')
   const history = useHistory();
-  const [title, setTitle] = useState("Jack and the beanstalk");
+  const [title, setTitle] = useState("");
   const [imageURL, setImageURL] = useState(null);
-  const [description, setDescription] = useState("The classic tale");
+  const [description, setDescription] = useState("");
   const [body, setBody] = useState(``);
 
 
@@ -25,19 +25,21 @@ export default function AddNewSeed() {
     formData.append("imageURL", imageURL);
     formData.append("description", description);
     formData.append("body", body);
-    console.log(body);
-    // axios.post('http://localhost:8010/writing-routes/add-new-seed',formData,{
-    //     headers:{
-    //         'Content-Type':"multipart/form-data",
-    //         'Authorization':`Bearer ${TOKEN}`
-    //     }
-    // }).then(response=>{
-    //      console.log("New seed added!");
-    //      console.log(response);
-    //  }).catch(err=>{
-    //      console.log("Error adding new seed!");
-    //      console.log(err);
-    //  })
+
+    axios.post(`${BACKEND_URL}writing-routes/add-new-seed`,formData,{
+        headers:{
+            'Content-Type':"multipart/form-data",
+            'Authorization':`Bearer ${TOKEN}`
+        }
+    }).then(response=>{
+
+         console.log("New seed added!");
+         console.log(response);
+         history.push('/');
+     }).catch(err=>{
+         console.log("Error adding new seed!");
+         console.log(err);
+     })
   };
 
   return (

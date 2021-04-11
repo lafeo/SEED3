@@ -5,7 +5,7 @@ import axios from 'axios';
 export default function HTMLRendering() {
     const [allSeeds,setAllSeeds] = useState([]);
     useEffect(()=>{
-        axios.get('http://localhost:8010/writing-routes/get-all-seeds/').then(allSeeds=>{
+        axios.get(`${BACKEND_URL}writing-routes/get-all-seeds/`).then(allSeeds=>{
             console.log(allSeeds.data);
             setAllSeeds(allSeeds.data.allSeeds);
         }).catch(err=>{
