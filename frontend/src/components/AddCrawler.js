@@ -27,7 +27,7 @@ export default function AddCrawler(props) {
     console.log(detailsToSend);
     axios
       .post(
-        "http://localhost:8010/writing-routes/add-new-crawler",
+        BACKEND_URL+"writing-routes/add-new-crawler",
         detailsToSend,
         {
           headers: {
