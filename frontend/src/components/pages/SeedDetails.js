@@ -7,14 +7,17 @@ import "./Details.scss";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {faStar as outlined} from '@fortawesome/free-regular-svg-icons';
+import {Link} from "react-router-dom";
 
 export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
   const [mainSeed, setMainSeed] = useState(props.location.state.seed);
   const [starCounter,setStarCounter] = useState(props.location.state.seed.stars);
+
   const [seedStarred,setSeedStarred] = useState(false);
   const [body,setBody] = useState('');
   const TOKEN=localStorage.getItem('TOKEN');
+
   function renderCrawlers() {
     return allCrawlers.map((crawler) => <h1>crawler.authorID</h1>);
   }
@@ -113,6 +116,7 @@ export default function SeedDetailsComponent(props) {
     setIsOpen(false);
   }
 
+
   Modal.setAppElement("#root");
 
   return (
@@ -128,7 +132,8 @@ export default function SeedDetailsComponent(props) {
 
           <AuthorName>  By {mainSeed.userDetails.username}
             <StarsArea>
-              <FontAwesomeIcon onClick={changeSeedStarred} icon={seedStarred ? faStar : outlined}/>
+                {props.location.state.isLoggedIn ? <FontAwesomeIcon onClick={changeSeedStarred} icon={seedStarred ? faStar : outlined}/> :null}
+
             </StarsArea>
 
           </AuthorName>
@@ -184,6 +189,13 @@ export default function SeedDetailsComponent(props) {
                   ))
               }
           </CrawlerWrapper>
+            {props.location.state.isLoggedIn ?  <button> <Link className="cards__item__link"  to={{
+                pathname: "/add-new-crawler",
+                state:{
+                    seed:mainSeed,
+                    body:body,
+                }
+            }}> Add New Crawler</Link></button>:null}
         </CrawlerContainer>
       </SeedContainer>
     </Full>

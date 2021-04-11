@@ -4,14 +4,15 @@ import { BACKEND_URL } from "../constants";
 import './CardItem.css'
 
 
-function CardItem({ crawler }) {
+function CardItem({ crawler,isLoggedIn }) {
   return (
     <>
       <li className="cards__item">
         <Link className="cards__item__link"  to={{
           pathname: "/seed-details",
           state:{
-            seed:crawler
+            seed:crawler,
+            isLoggedIn:isLoggedIn
           }
         }}>
           <figure className="cards__item__pic-wrap" data-category={crawler.title}>

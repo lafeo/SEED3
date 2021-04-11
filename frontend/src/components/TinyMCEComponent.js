@@ -17,7 +17,7 @@ export default function TinyMCEComponent(props) {
         return (
             <Editor
                 apiKey='kfhsdb4fggqejw121bg489m91gkoobj8zt18vapz0u5pzc9d'
-                initialValue="<p>This is the initial content of the editor</p>"
+                initialValue={props.body}
                 init={{
                     plugins: [
                         'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',

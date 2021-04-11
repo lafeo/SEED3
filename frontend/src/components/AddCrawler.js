@@ -4,13 +4,12 @@ import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
 
-export default function AddCrawler() {
+export default function AddCrawler(props) {
   function tinyCallback(value) {
     setBody(value);
   }
 
-  const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt1bmFsYmhhdGlhQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikt1bmFsIiwibGFzdG5hbWUiOiJCaGF0aWEiLCJ1c2VybmFtZSI6IktCaGF0aWEiLCJpZCI6IjYwNzA1MGYyN2Y5ZmI1MDNlNzVkNTA4MCIsIm51bWJlck9mU2VlZHNXcml0dGVuIjo1LCJudW1iZXJPZkNyYXdsc1dyaXR0ZW4iOjAsImlhdCI6MTYxODAxMzgzNiwiZXhwIjoxNjE4MDI0NjM2fQ.UrvgUTlwXoUcIBVY9ZIP8dx4pODVGRwNsBeBObZ1VVk";
+  const TOKEN = localStorage.getItem("TOKEN");
 
   const [description, setDescription] = useState("The classic tale");
   const [body, setBody] = useState("");
@@ -53,7 +52,7 @@ export default function AddCrawler() {
         </Inputs>
         {/*<textarea  onChange={(e) => (setBody(e.target.value))} placeholder='Body' name="body2" id="body2"/>*/}
         <TinyMCE>
-          <TinyMCEComponent callback={tinyCallback} />
+          <TinyMCEComponent body={props.location.state.body} callback={tinyCallback} />
         </TinyMCE>
         <LastLine>
           <Button onClick={submitHandler}>Submit</Button>

@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { BACKEND_URL } from "../constants";
 
-function Cards() {
+function Cards(props) {
   const [allSeeds, setAllSeeds] = useState([]);
   const [showSeeds, setShowSeeds] = useState(false);
   useEffect(() => {
@@ -45,7 +45,7 @@ function Cards() {
           {Shuffle(allSeeds)
             .splice(0, 8)
             .map((seed) => (
-              <CardItem crawler={seed} key={seed._id} />
+              <CardItem isLoggedIn={props.isLoggedIn} crawler={seed} key={seed._id} />
             ))}
         </div>
       ) : null}
