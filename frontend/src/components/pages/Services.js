@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import '../../App.css';
+import "../../App.css";
 import CardItem from "../CardItem";
 import axios from "axios";
 
 import { BACKEND_URL } from "../../constants";
-
 
 export default function Services() {
   const [allSeeds, setAllSeeds] = useState([]);
@@ -37,10 +36,11 @@ export default function Services() {
     }
     return array;
   }
-  
+
   return (
-  // <div  className='services'>
+    // <div  className='services'>
     <div className="cards" id="cards">
+      <h1 style={{ padding: "2rem", marginTop: "1rem" }}>All Seeds</h1>
       {showSeeds ? (
         <div className="cards__container">
           {Shuffle(allSeeds)

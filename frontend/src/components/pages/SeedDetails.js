@@ -217,7 +217,7 @@ const SeedContainer = styled.div`
 const SeedWrapper = styled.div`
   color: white;
   /* margin: 3rem; */
-  height: 80vh;
+  height: 70vh;
   max-width: 70vw;
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, 0.1);
@@ -248,6 +248,8 @@ const Seed = styled.div`
 
 const Crawler = styled.div`
   cursor: pointer;
+  backdrop-filter: blur(5px);
+  background-color: rgba(119, 88, 255, 0.2);
 `;
 
 const CrawlerContainer = styled.div`
@@ -256,9 +258,9 @@ const CrawlerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   backdrop-filter: blur(5px);
-  background-color: rgba(0, 26, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-  height: 75%;
+  height: 70vh;
   transform: translateY(6%);
   margin-right: 1rem;
 `;

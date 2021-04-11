@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {useHistory}from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../constants";
 import TinyMCEComponent from "./TinyMCEComponent";
 import styled from "styled-components";
 export default function AddNewSeed() {
-  const TOKEN = localStorage.getItem('TOKEN')
+  const TOKEN = localStorage.getItem("TOKEN");
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [imageURL, setImageURL] = useState(null);
   const [description, setDescription] = useState("");
   const [body, setBody] = useState(``);
-
-
-
 
   function tinyCallback(value) {
     setBody(value);
@@ -26,20 +23,22 @@ export default function AddNewSeed() {
     formData.append("description", description);
     formData.append("body", body);
 
-    axios.post(`${BACKEND_URL}writing-routes/add-new-seed`,formData,{
-        headers:{
-            'Content-Type':"multipart/form-data",
-            'Authorization':`Bearer ${TOKEN}`
-        }
-    }).then(response=>{
-
-         console.log("New seed added!");
-         console.log(response);
-         history.push('/');
-     }).catch(err=>{
-         console.log("Error adding new seed!");
-         console.log(err);
-     })
+    axios
+      .post(`${BACKEND_URL}writing-routes/add-new-seed`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log("New seed added!");
+        console.log(response);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log("Error adding new seed!");
+        console.log(err);
+      });
   };
 
   return (
