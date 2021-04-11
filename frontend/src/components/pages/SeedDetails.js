@@ -4,56 +4,66 @@ import axios from "axios";
 import { BACKEND_URL } from "../../constants";
 import styled from "styled-components";
 import "./Details.scss";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faStar} from '@fortawesome/free-solid-svg-icons';
-import {faStar as outlined} from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as outlined } from "@fortawesome/free-regular-svg-icons";
 
 export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
   const [mainSeed, setMainSeed] = useState(props.location.state.seed);
-  const [starCounter,setStarCounter] = useState(props.location.state.seed.stars);
-  const [seedStarred,setSeedStarred] = useState(false);
-  const [body,setBody] = useState('');
-  const TOKEN=localStorage.getItem('TOKEN');
+  const [starCounter, setStarCounter] = useState(
+    props.location.state.seed.stars
+  );
+  const [seedStarred, setSeedStarred] = useState(false);
+  const [body, setBody] = useState("");
+  const TOKEN = localStorage.getItem("TOKEN");
   function renderCrawlers() {
     return allCrawlers.map((crawler) => <h1>crawler.authorID</h1>);
   }
-  function changeSeedStarred(){
-    axios.put(`${BACKEND_URL}writing-routes/update-writing-stars/${mainSeed._id}`,{
-      newNumberOfStars:(starCounter + (!seedStarred ? 1:-1))
-    },{
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization' : `Bearer ${TOKEN}`
-      }
-    }).then(response=>{
-      response=response.data;
-      if (response.success){
-        console.log("Stars Updated!");
-        setStarCounter(starCounter + (!seedStarred?1:-1))
-        console.log(response);
-        setSeedStarred(!seedStarred);
-      }else{
-        console.log("Could not update stars!!");
-
-      }
-
-    }).catch(err=>{
-      console.log("Error updating number of stars!!");
-      console.log(err);
-    })
-
+  function changeSeedStarred() {
+    axios
+      .put(
+        `${BACKEND_URL}writing-routes/update-writing-stars/${mainSeed._id}`,
+        {
+          newNumberOfStars: starCounter + (!seedStarred ? 1 : -1),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      )
+      .then((response) => {
+        response = response.data;
+        if (response.success) {
+          console.log("Stars Updated!");
+          setStarCounter(starCounter + (!seedStarred ? 1 : -1));
+          console.log(response);
+          setSeedStarred(!seedStarred);
+        } else {
+          console.log("Could not update stars!!");
+        }
+      })
+      .catch((err) => {
+        console.log("Error updating number of stars!!");
+        console.log(err);
+      });
   }
 
   useEffect(() => {
- axios.get(`${BACKEND_URL}writing-routes/get-seed-body-and-stars/${props.location.state.seed._id}`).then(response=>{
-      if (response.data.success){
-        setBody(response.data.body);
-        setStarCounter(response.data.stars);
+    axios
+      .get(
+        `${BACKEND_URL}writing-routes/get-seed-body-and-stars/${props.location.state.seed._id}`
+      )
+      .then((response) => {
+        if (response.data.success) {
+          setBody(response.data.body);
+          setStarCounter(response.data.stars);
 
-        axios
+          axios
             .get(
-                `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
+              `${BACKEND_URL}writing-routes/get-crawlers-for-seed/${props.location.state.seed._id}/`
             )
             .then((allCrawlers) => {
               if (allCrawlers.data.success) {
@@ -70,13 +80,12 @@ export default function SeedDetailsComponent(props) {
               console.log("Error getting all the crawlers!");
               console.log(err);
             });
-      }
-    }).catch(err=>{
-      console.log("Error!");
-      console.log(err);
-    })
-
-
+        }
+      })
+      .catch((err) => {
+        console.log("Error!");
+        console.log(err);
+      });
   }, []);
 
   //   MODAL
@@ -89,7 +98,7 @@ export default function SeedDetailsComponent(props) {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       background: "#100B18",
-        opacity: 0.9,
+      opacity: 0.9,
       boxShadow: "20px 20px 10px gray",
       borderRadius: "20px",
       width: "70%",
@@ -118,71 +127,68 @@ export default function SeedDetailsComponent(props) {
   return (
     <Full>
       <SeedContainer>
-       <SeedWrapper>
-          <SeedTitle>{mainSeed.title}
-            <StarsArea>
-              {starCounter}
-            </StarsArea>
+        <SeedWrapper>
+          <SeedTitle>
+            {mainSeed.title}
+            <StarsArea>{starCounter}</StarsArea>
           </SeedTitle>
 
-
-          <AuthorName>  By {mainSeed.userDetails.username}
+          <AuthorName>
+            {" "}
+            By {mainSeed.userDetails.username}
             <StarsArea>
-              <FontAwesomeIcon onClick={changeSeedStarred} icon={seedStarred ? faStar : outlined}/>
+              <FontAwesomeIcon
+                onClick={changeSeedStarred}
+                icon={seedStarred ? faStar : outlined}
+              />
             </StarsArea>
-
           </AuthorName>
           <Seed mainSeed={mainSeed}>
-            <h3 dangerouslySetInnerHTML={{ __html: body}} />
-
+            <h3 dangerouslySetInnerHTML={{ __html: body }} />
           </Seed>
         </SeedWrapper>
 
         <CrawlerContainer>
           <CrawlerWrapper>
-              {allCrawlers.length===0 ? <h1>No Crawls</h1>:
-                  allCrawlers.map((crawler) => (
-                      <Crawler key={crawler.authorID} onClick={openModal}>
-                          {modalIsOpen ? (
-                              <Modal
-                                  closeTimeoutMS={500}
-                                  isOpen={modalIsOpen}
-                                  onAfterOpen={afterOpenModal}
-                                  onRequestClose={closeModal}
-                                  style={customStyles}
-                                  contentLabel="Example Modal"
-                              >
-                                  <HeadingContainer>
-                                      <h2
-                                          ref={(_subtitle) => (subtitle = _subtitle)}
-                                          style={{color: "blue"}}
-                                      >
-                                          {crawler.title}
-
-                                      </h2>
-                                      <CrawlerAuthorName>
-                                          By {crawler.userDetails.username}
-                                      </CrawlerAuthorName>
-
-
-                                  </HeadingContainer>
-                                  <DangerousText
-                                      dangerouslySetInnerHTML={{__html: crawler.body}}
-                                  />
-                                  <ButtonWrapper>
-                                      <Button onClick={closeModal}>Close</Button>
-                                  </ButtonWrapper>
-                              </Modal>
-                          ) : (
-                              ""
-                          )}
-                          <div>Crawl By {crawler.userDetails.username}</div>
-
-                          {/* <div>{crawler.author}</div>
-                <div>{crawler.pointOfClicking}</div> */}
-                      </Crawler>
-                  ))
-              }
+            {allCrawlers.length === 0 ? (
+              <h1>No Crawls</h1>
+            ) : (
+              allCrawlers.map((crawler) => (
+                <Crawler key={crawler.authorID} onClick={openModal}>
+                  {modalIsOpen ? (
+                    <Modal
+                      closeTimeoutMS={500}
+                      isOpen={modalIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModal}
+                      style={customStyles}
+                      contentLabel="Example Modal"
+                    >
+                      <HeadingContainer>
+                        <h2
+                          ref={(_subtitle) => (subtitle = _subtitle)}
+                          style={{ color: "blue" }}
+                        >
+                          {crawler.title}
+                        </h2>
+                        <CrawlerAuthorName>
+                          By {crawler.userDetails.username}
+                        </CrawlerAuthorName>
+                      </HeadingContainer>
+                      <DangerousText
+                        dangerouslySetInnerHTML={{ __html: crawler.body }}
+                      />
+                      <ButtonWrapper>
+                        <Button onClick={closeModal}>Close</Button>
+                      </ButtonWrapper>
+                    </Modal>
+                  ) : (
+                    ""
+                  )}
+                  <div>Crawl By {crawler.userDetails.username}</div>
+                </Crawler>
+              ))
+            )}
           </CrawlerWrapper>
         </CrawlerContainer>
       </SeedContainer>
@@ -190,27 +196,25 @@ export default function SeedDetailsComponent(props) {
   );
 }
 
-
 const SeedTitle = styled.div`
-  font-size:2.3rem;
-  text-align:center;
+  font-size: 2.3rem;
+  text-align: center;
 `;
 
 const StarsArea = styled.div`
-  float:right;
-  font-size:1.6rem;
-`
-
+  float: right;
+  font-size: 1.6rem;
+`;
 
 const DangerousText = styled.div`
   font-size: 1.2rem;
   color: white;
 `;
 const CrawlerAuthorName = styled.div`
-  font-size:1.2rem;
-  color:white;
-  text-align:center;
-`
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+`;
 const HeadingContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -251,10 +255,9 @@ const Full = styled.div`
 `;
 const AuthorName = styled.div`
   text-align: center;
-  font-size:1.1rem;
-  margin:0.3rem;
+  font-size: 1.1rem;
+  margin: 0.3rem;
 `;
-
 
 const SeedContainer = styled.div`
   display: grid;
