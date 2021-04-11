@@ -47,13 +47,17 @@ function Cards(props) {
           {Shuffle(allSeeds)
             .splice(0, 8)
             .map((seed) => (
-              <CardItem isLoggedIn={props.isLoggedIn} crawler={seed} key={seed._id} />
+              <CardItem
+                isLoggedIn={props.isLoggedIn}
+                crawler={seed}
+                key={seed._id}
+              />
             ))}
         </div>
       ) : null}
       <AddLinks>
         <Link
-          to="/services"
+          to="/all-seeds"
           style={{
             color: "white",
             textDecoration: "none",

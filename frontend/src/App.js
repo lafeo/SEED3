@@ -58,7 +58,7 @@ function App() {
 
           <Route exact path="/" component={()=><Home setIsUserLoggedIn={setIsUserLoggedIn} isLoggedIn={isLoggedIn} userDetails={userDetails}
                                                      userDetailsLoaded={userDetailsLoaded}/>}  />
-          <Route exact path="/services" component={Services} />
+          <Route exact path="/all-seeds" component={Services} />
           <Route exact path="/log-in" component={Login} />
           <Route exact path="/sign-up" component={SignUp} />
           {userDetailsLoaded && isLoggedIn ?

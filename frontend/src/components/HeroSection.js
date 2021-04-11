@@ -5,8 +5,10 @@ import "../App.css";
 import "./HeroSection.css";
 import SignUpComponent from "./SignUp";
 import SignInComponent from "./SignIn";
+import axios from 'axios';
 // import CheckUserTokenValidity from "./shared/LoginChecker";
 import styled from "styled-components";
+import {BACKEND_URL} from "../constants";
 
 function HeroSection(props) {
   const [showSignUpForm, setShowSignUpForm] = useState(!props.isLoggedIn);
@@ -20,17 +22,33 @@ function HeroSection(props) {
     setIsLoggedIn(value);
     setUserDetails(userDetails);
     console.log("SIGNED IN " + value);
-    props.setIsUserLoggedIn(value, userDetails);
+
+            props.setIsUserLoggedIn(value, userDetails);
+
+
+
   }
   useEffect(() => {
-    setIsLoggedIn(props.isLoggedIn);
-    setUserDetails(props.userDetails);
-    setShowSignUpForm(!props.isLoggedIn);
+    axios.get(`${BACKEND_URL}user-routes/get-user-data/${props.userDetails.id}`)
+        .then(response=>response.data)
+        .then(response=>{
+          console.log(response);
+
+            setIsLoggedIn(props.isLoggedIn);
+            setUserDetails(response.userData);
+            setShowSignUpForm(!props.isLoggedIn);
+
+
+        })
+
+
   }, []);
 
   const showLoggingInForms = () =>
     showSignUpForm ? (
-      <SignUpComponent callback={callbackForShowSignUpForm} />
+      <SignUpComponent         signInCallBack={callbackToSetSignInState}
+                               callback={callbackForShowSignUpForm}
+      />
     ) : (
       <SignInComponent
         signInCallBack={callbackToSetSignInState}

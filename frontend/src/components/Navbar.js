@@ -64,7 +64,7 @@ function Navbar(props) {
             </li>
             <li className='nav-item'>
               <Link
-                to='/services'
+                to='/all-seeds'
                 className='nav-links'
                 onClick={closeMobileMenu}
               >

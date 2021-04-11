@@ -30,6 +30,7 @@ export default function SignUpComponent (props){
                 console.log("New user made!!");
                 console.log(result);
                 localStorage.setItem('TOKEN',result.token);
+                props.signInCallBack(true,result.userData);
             }else{
                 console.log("New user rejected!");
                 alert(result.data.message);
