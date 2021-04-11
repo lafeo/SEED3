@@ -194,7 +194,7 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
             _id:seed._id,
             description:seed.description,
             imageURL:seed.imageURL,
-            body:seed.body,
+            stars:seed.stars,
             userDetails:{username:userDetails.username,
                 lastName:userDetails.lastName,
                 firstName:userDetails.firstName}
@@ -221,6 +221,8 @@ Writing.find({origin:null}).exec().then(async(allSeeds)=>{
 router.put('/update-writing-stars/:writingID',CheckAuth,(req,res,next)=>{
     const writingID = req.params.writingID;
     const newNumberOfStars =req.body.newNumberOfStars;
+    console.log(writingID);
+    console.log(newNumberOfStars);
     Writing.findByIdAndUpdate({_id:writingID},
         {stars:newNumberOfStars},
         {new:true}).then(updatedWriting=>{
@@ -234,6 +236,29 @@ router.put('/update-writing-stars/:writingID',CheckAuth,(req,res,next)=>{
         return res.status(404).json({
             success:false,
             message:err.message
+        })
+    })
+})
+
+router.get('/get-seed-body-and-stars/:id',(req,res,next)=>{
+    const id = req.params.id;
+    Writing.findOne({_id:id}).then(writing=>{
+        if (!writing){
+            return res.status(401).json({
+                success:false,
+                message:"Id not given"
+            })
+        }
+        return res.json({
+            success:true,
+            body:writing.body,
+            stars:writing.stars
+        })
+    }).catch(err=>{
+        console.log(err);
+        return res.status(404).json({
+            success:false,
+            message:err,
         })
     })
 })
@@ -364,11 +389,27 @@ router.get('/get-crawlers-for-seed/:parent',(req,res,next)=>{
             message:"Parent ID not given!"
         })
     }
-    Writing.find({origin:parent}).then(allCrawlers=>{
+    Writing.find({origin:parent}).then(async allCrawlers=>{
         console.log(`All crawlers found for ${parent}!`);
+        const finalCrawlerResult= [];
+        for (let crawler of allCrawlers){
+            const userDetails = await User.findOne({_id:crawler.authorID});
+
+            finalCrawlerResult.push({
+                title:crawler.title,
+                _id:crawler._id,
+                description:crawler.description,
+                imageURL:crawler.imageURL,
+                stars:crawler.stars,
+                body:crawler.body,
+                userDetails:{username:userDetails.username,
+                    lastName:userDetails.lastName,
+                    firstName:userDetails.firstName}
+            });
+        }
         return res.status(200).json({
             success:true,
-            allCrawlers : allCrawlers ? allCrawlers:[]
+            allCrawlers : finalCrawlerResult ? finalCrawlerResult:[]
         })
     }).catch(err=>{
         console.log(`Error finding crawlers for ${parent}!`);
