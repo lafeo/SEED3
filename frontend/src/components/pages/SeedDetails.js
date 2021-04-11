@@ -16,7 +16,7 @@ export default function SeedDetailsComponent(props) {
   const [allCrawlers, setAllCrawlers] = useState([]);
   const [mainSeed, setMainSeed] = useState(props.location.state.seed);
   const [wait, setWait] = useState(true);
-
+  console.log(props.location.state.isLoggedIn);
   const [starCounter, setStarCounter] = useState(
     props.location.state.seed.stars
   );

@@ -81,9 +81,9 @@ function Navbar(props) {
               </Link>
             </li>
 
-
+            {isLoggedIn ?<Button onClick={onLogOut} buttonStyle='btn--outline'>Log Out</Button>:null}
           </ul>
-          {isLoggedIn ?<Button onClick={onLogOut} buttonStyle='btn--outline'>Log Out</Button>:null}
+
         </div>
       </nav>
     </>
